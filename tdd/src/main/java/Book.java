@@ -22,8 +22,8 @@ public class Book {
     public void setAvailable(boolean b){
         available = b;
     }
-    public void addToPreviousOwners(String name){
-        previousOwners.add(name);
+    public void addToPreviousOwners(String d){
+        previousOwners.add(d);
 
     }
 

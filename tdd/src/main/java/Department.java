@@ -21,5 +21,8 @@ public class Department {
             System.out.println("Book is already rented");
         }
     }
+    public String getName(){
+        return name;
+    }
 
 }

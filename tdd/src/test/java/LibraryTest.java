@@ -1,7 +1,17 @@
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryTest {
-@org.junit.jupiter.api.Test
+@Test
+    void testThatBooksAreRentedCorrectly(){
+    Book a = new Book("A Game of Thrones", "Fantasy");
+    Department litDept = new Department("Literature");
+    litDept.rentBook(a);
+    System.out.println(a.getPreviousOwners());
+    assertEquals(a.getPreviousOwners().get(a.getPreviousOwners().size() - 1), litDept.getName());
+}
+@Test
     void testForUnnecessaryDuplicateBookAcquisition(){
     Book a = new Book("Introduction to Sahir Sharma", "Idiots in computer science");
     Department historyDept = new Department("History");
