@@ -14,4 +14,8 @@ public class Library {
     public int getClosingtime() {
         return closingtime;
     }
+
+    public String searchBook(Book b) {
+        return null;
+    }
 }
