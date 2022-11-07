@@ -16,6 +16,7 @@ public class Book {
     public boolean getAvailable(){
         return available;
     }
+    public String getName(){return name;}
     public ArrayList<String> getPreviousOwners(){
         return previousOwners;
     }
