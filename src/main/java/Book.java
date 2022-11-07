@@ -6,8 +6,8 @@ public class Book {
     private String subject;
     private String department;
     private boolean available = true;
-    private ArrayList<String> previousOwners = new ArrayList<>()
-            ;
+    private ArrayList<String> previousOwners = new ArrayList<>();
+
     public Book(String name, String subject){
         this.name = name;
         this.subject = subject;
