@@ -21,12 +21,23 @@ public class Book {
         return available;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
     public ArrayList<String> getPreviousOwners(){
         return previousOwners;
     }
 
     public void addToPreviousOwners(String name){
         previousOwners.add(name);
-
     }
 }

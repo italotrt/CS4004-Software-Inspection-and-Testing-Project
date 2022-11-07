@@ -1,9 +1,17 @@
 public class Library {
-    public static void main(String[] args) {
-        Book a = new Book("Introduction to Sahir Sharma", "Idiots in computer science");
-        Department historyDept = new Department("History");
-        Department compSciDept = new Department("Computer Science");
-        historyDept.rentBook(a);
-        compSciDept.rentBook(a);
+    private int openingTime;
+    private int closingtime;
+
+    public Library(int open, int close) {
+        this.openingTime = open;
+        this.closingtime = close;
+    }
+
+    public int getOpeningTime() {
+        return openingTime;
+    }
+
+    public int getClosingtime() {
+        return closingtime;
     }
 }
