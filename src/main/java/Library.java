@@ -1,21 +1,31 @@
+import java.util.ArrayList;
+
 public class Library {
-    private int openingTime;
-    private int closingtime;
+    private boolean open;
+    private ArrayList<Book> booksInLibrary = new ArrayList<Book>();
 
-    public Library(int open, int close) {
-        this.openingTime = open;
-        this.closingtime = close;
+    public Library(boolean open) {
+        this.open = open;
     }
 
-    public int getOpeningTime() {
-        return openingTime;
+    public void addBook(Book b) {
+        booksInLibrary.add(b);
     }
 
-    public int getClosingtime() {
-        return closingtime;
+    public ArrayList<Book> getBooksInLibrary() {
+        return booksInLibrary;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 
     public String searchBook(Book b) {
-        return null;
+        for(Book i: booksInLibrary) {
+            if(b.getAvailable() && open && booksInLibrary.contains(b)) {
+                return "Book " + i.getName() + " is available.";
+            }
+        }
+        return "Book not found";
     }
 }
