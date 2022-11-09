@@ -60,7 +60,7 @@ public class Journal {
     }
 
     public boolean cancelSubscription(int withdrawals) {
-        if (getMinimumWithdrawals() >= withdrawals || isExternalAccess()) {
+        if (withdrawals >= getMinimumWithdrawals() || isExternalAccess()) {
             subscriptionStatus = true;
             return true;
         }
