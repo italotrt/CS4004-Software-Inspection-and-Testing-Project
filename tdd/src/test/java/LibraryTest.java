@@ -87,37 +87,29 @@ import static org.junit.jupiter.api.Assertions.*;
                     () -> assertFalse(user2.rentedBooks.contains(canadaBook2)));
         }
 
+        //Testing for unnecessary subscriptions to journals with limited interest || access is available via external universities
         @Test
-        void subscriptionTest1 () {
-            Journal j = new Journal("a", "b");
-            j.setBorrowTotal(0); // Borrow total below limit
-            j.setExternalAccess(true);  // Another Uni has access to the journal
-            assertFalse(j.isSubscriptionStatus());
+        void testIfSubscriptionCancelsIfWithdrawalsAboveLimitAndExternalAccessIsTrue(){
+            Journal j = new Journal(1, true);
+            assertFalse(j.cancelSubscription(5));
         }
-            @Test
-            void subscriptionTest2 () {
-                Journal j = new Journal("1", "2");
-                j.setBorrowTotal(10); // Borrow total above limit
-                j.setExternalAccess(false);  // Another Uni does not have access to the journal
-                assertTrue(j.isSubscriptionStatus());
-            }
+@Test
+        void testIfSubscriptionCancelsIfWithdrawalsBelowLimitAndExternalAccessIsFalse(){
+            Journal j = new Journal(1, false);
+            assertTrue(j.cancelSubscription(0));
+        }
 
-            @Test
-            void subscriptionTest3 () {
-                Journal j = new Journal("Yeet", "Skrrt");
-                j.setBorrowTotal(0); // Borrow total below limit
-                j.setExternalAccess(false);  // Another Uni does not have access to the journal
-                assertFalse(j.isSubscriptionStatus());
-            }
+        @Test
+        void testIfSubscriptionCancelsIfWithdrawalsAboveLimitAndExternalAccessIsFalse(){
+            Journal j = new Journal(1, false);
+            assertFalse(j.cancelSubscription(5000));
+        }
 
-            @Test
-            void subscriptionTest4 () {
-                Journal j = new Journal("Beep", "Boop");
-                j.setBorrowTotal(10); // Borrow total below limit
-                j.setExternalAccess(true);  // Another Uni has access to the journal
-                assertTrue(j.isSubscriptionStatus());
-            }
-
+        @Test
+        void testIfSubscriptionCancelsIfWithdrawalsBelowLimitAndExternalAccessIsTrue(){
+            Journal j = new Journal(600, true);
+            assertFalse(j.cancelSubscription(24));
+        }
         @Test
         void testSearchIfBookIsAvailableWhenLibraryIsOpen() {
             Library uwon = new Library(true);
@@ -126,6 +118,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
             assertEquals("Book " + bookA.getName() + " is available.", uwon.searchBook(bookA));
         }
+
+
         @Test
         void UserCanSendStaffEmail(){
             User user = new User("Mark Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
