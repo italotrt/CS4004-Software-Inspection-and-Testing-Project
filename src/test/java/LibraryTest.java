@@ -12,37 +12,29 @@ class LibraryTest {
         compSciDept.rentBook(a);
         assertFalse(compSciDept.getCurrentRentedBooks().contains(a));
         
-    //Testing for unnecessary subscriptions to journals with limited interest || access is available via external universities 
-    @Test
-    void subscriptionTest1(){
-        Journal j = new Journal("a", "b");
-        j.setBorrowTotal(0); // Borrow total below limit
-        j.setExternalAccess(true);  // Another Uni has access to the journal
-        assertTrue(j.isSubscriptionStatus());
+//Testing for unnecessary subscriptions to journals with limited interest || access is available via external universities 
+  @Test
+    void TestIfSubscriptionCancelsIfWithdrawalsAboveLimitAndExternalAccessIsTrue(){
+        Journal j = new Journal(1, true);
+        assertFalse(j.cancelSubscription(5));
     }
 
     @Test
-    void subscriptionTest2(){
-        Journal j = new Journal("1", "2");
-        j.setBorrowTotal(10); // Borrow total above limit
-        j.setExternalAccess(false);  // Another Uni does not have access to the journal
-        assertTrue(j.isSubscriptionStatus());
+    void TestIfSubscriptionCancelsIfWithdrawalsBelowLimitAndExternalAccessIsFalse(){
+        Journal j = new Journal(1, false);
+        assertFalse(j.cancelSubscription(0));
     }
 
     @Test
-    void subscriptionTest3(){
-        Journal j = new Journal("Yeet", "Skrrt");
-        j.setBorrowTotal(0); // Borrow total below limit
-        j.setExternalAccess(false);  // Another Uni does not have access to the journal
-        assertTrue(j.isSubscriptionStatus());
+    void TestIfSubscriptionCancelsIfWithdrawalsAboveLimitAndExternalAccessIsFalse(){
+        Journal j = new Journal(1, false);
+        assertFalse(j.cancelSubscription(5000));
     }
 
     @Test
-    void subscriptionTest4(){
-        Journal j = new Journal("Beep", "Boop");
-        j.setBorrowTotal(10); // Borrow total below limit
-        j.setExternalAccess(true);  // Another Uni has access to the journal
-        assertTrue(j.isSubscriptionStatus());
+    void TestIfSubscriptionCancelsIfWithdrawalsBelowLimitAndExternalAccessIsTrue(){
+        Journal j = new Journal(600, true);
+        assertFalse(j.cancelSubscription(24));
     }
         
     }
