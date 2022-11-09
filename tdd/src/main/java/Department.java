@@ -1,4 +1,3 @@
-<<<<<<< HEAD:tdd/src/main/java/Department.java
 import java.util.ArrayList;
 
 public class Department {
@@ -11,8 +10,8 @@ public class Department {
 
     public ArrayList<Book> getCurrentRentedBooks(){
         return currentRentedBooks;
-
     }
+
     public void rentBook(Book b){
         if(b.getAvailable()){
             b.setAvailable(false);
@@ -27,7 +26,7 @@ public class Department {
     }
 
 
-}
+}/*
 =======
 import java.util.ArrayList;
 
@@ -57,4 +56,4 @@ public class Department {
         return name;
     }
 }
->>>>>>> italo:src/main/java/Department.java
+*/
