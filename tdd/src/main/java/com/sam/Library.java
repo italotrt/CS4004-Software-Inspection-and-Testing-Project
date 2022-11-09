@@ -1,5 +1,6 @@
+package com.sam;
+
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Library {
     private boolean open;
@@ -25,10 +26,10 @@ public class Library {
         for(Book i: booksInLibrary) {
             if(i.getName().equals(b.getName())){
                 if(b.getAvailable() && open) {
-                return "Book " + i.getName() + " is available.";
+                return "com.sam.Book " + i.getName() + " is available.";
                 }
             }
         }
-        return "Book not found";
+        return "com.sam.Book not found";
     }
 }

@@ -1,3 +1,5 @@
+
+import com.sam.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,7 +54,7 @@ import static org.junit.jupiter.api.Assertions.*;
         @Test
         void testCorrectUserRegistration() {
             User user = new User("Mark Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
-            assertAll("User Details",
+            assertAll("com.sam.User Details",
                     () -> assertEquals("Mark Harrison", user.name),
                     () -> assertEquals(19, user.age),
                     () -> assertEquals("LM051", user.course),
@@ -65,7 +67,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Test
         void testCorrectStaffRegistration() {
             Staff staff = new Staff("John Boyne", "LM055");
-            assertAll("User Details",
+            assertAll("com.sam.User Details",
                     () -> assertEquals("John Boyne", staff.name),
                     () -> assertEquals("LM055", staff.course));
 

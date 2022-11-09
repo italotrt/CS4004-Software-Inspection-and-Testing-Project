@@ -1,3 +1,5 @@
+package com.sam;
+
 import java.util.ArrayList;
 
 public class Department {
@@ -18,7 +20,7 @@ public class Department {
             currentRentedBooks.add(b);
             b.addToPreviousOwners(name);
         }else{
-            System.out.println("Book is already rented");
+            System.out.println("com.sam.Book is already rented");
         }
     }
     public String getName(){
@@ -30,25 +32,25 @@ public class Department {
 =======
 import java.util.ArrayList;
 
-public class Department {
+public class com.sam.Department {
     private String name;
-    private ArrayList<Book> currentRentedBooks = new ArrayList<>();
+    private ArrayList<com.sam.Book> currentRentedBooks = new ArrayList<>();
 
-    public Department(String name) {
+    public com.sam.Department(String name) {
         this.name = name;
     }
 
-    public ArrayList<Book> getCurrentRentedBooks() {
+    public ArrayList<com.sam.Book> getCurrentRentedBooks() {
         return currentRentedBooks;
     }
 
-    public void rentBook(Book b) {
+    public void rentBook(com.sam.Book b) {
         if (b.getAvailable()) {
             b.setAvailable(false);
             currentRentedBooks.add(b);
             b.addToPreviousOwners(name);
         } else {
-            System.out.println("Book is already rented");
+            System.out.println("com.sam.Book is already rented");
         }
     }
 

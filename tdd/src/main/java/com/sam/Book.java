@@ -1,3 +1,5 @@
+package com.sam;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -49,14 +51,14 @@ import java.util.ArrayList;
 */
 
 /*
-public class Book {
+public class com.sam.Book {
     private String name;
     private String subject;
     private String department;
     private boolean available = true;
     private ArrayList<String> previousOwners = new ArrayList<>();
 
-    public Book(String name, String subject){
+    public com.sam.Book(String name, String subject){
         this.name = name;
         this.subject = subject;
     }
@@ -89,5 +91,5 @@ public class Book {
         previousOwners.add(name);
     }
 }
->>>>>>> italo:src/main/java/Book.java
+>>>>>>> italo:src/main/java/com.sam.Book.java
 */

@@ -1,3 +1,5 @@
+package com.sam;
+
 import java.util.ArrayList;
 
 public class Journal {

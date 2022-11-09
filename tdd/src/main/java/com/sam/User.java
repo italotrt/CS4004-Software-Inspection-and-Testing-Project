@@ -1,18 +1,19 @@
-import java.lang.reflect.Array;
+package com.sam;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class User {
-    String name;
-    int age;
-    String course;
-    String department;
-    boolean passedCaptcha;
-    String university;
-    String phoneNumber;
-    String passEncrypted;
-    ArrayList<Book> rentedBooks = new ArrayList<>();
-    ArrayList<String> inbox = new ArrayList<>();
+    public String name;
+    public int age;
+    public String course;
+    public String department;
+    public boolean passedCaptcha;
+    public String university;
+    public String phoneNumber;
+    public String passEncrypted;
+    public ArrayList<Book> rentedBooks = new ArrayList<>();
+    public ArrayList<String> inbox = new ArrayList<>();
 
     public User(String name, int age, String course, String department, boolean passedCaptcha, String university, String phoneNumber, String passEncrypted){
         if(passedCaptcha){
