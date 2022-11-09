@@ -1,4 +1,3 @@
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
         @BeforeAll
         public static void setUp() {
-            a = new Book("Introduction to Sahir Sharma", "Idiots in computer science");
-            b = new Book("Maths and stuff!", "Maths");
-            c = new Book("Biology", "Biology");
+            a = new Book("Introduction to Sahir Sharma", "Idiots in computer science", 14);
+            b = new Book("Maths and stuff!", "Maths", 14);
+            c = new Book("Biology", "Biology", 21);
             historyDept = new Department("History");
             compSciDept = new Department("Computer Science");
             physicsDept = new Department("Physics");
@@ -127,6 +126,20 @@ import static org.junit.jupiter.api.Assertions.*;
             Staff staff = new Staff("Nicholas O Mahony", "LM051");
             user.sendToStaff(staff, "I am a homosexual");
             assertTrue(staff.inbox.contains("I am a homosexual"));
+        }
+        @Test
+        void testIfLoanTimeIsAccurate(){
+            Book book = new Book("How to Analytics", "Statistics", 3);
+            User user = new User("Mark Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
+            user.rentExternalBook(book);
+            user.rentExternalBook(a);
+            user.rentExternalBook(b);
+            assertAll("Rented Book Loan Times",
+                    () -> assertTrue(user.loanedBooks.get(0).equals("How to Analytics: 3 days left on loan.")),
+                    () -> assertTrue(user.loanedBooks.get(1).equals("Introduction to Sahir Sharma: 14 days left on loan.")),
+                    () -> assertTrue(user.loanedBooks.get(2).equals("Maths and stuff!: 14 days left on loan."))
+            );
+
         }
 
 

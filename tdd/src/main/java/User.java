@@ -13,6 +13,7 @@ public class User {
     String passEncrypted;
     ArrayList<Book> rentedBooks = new ArrayList<>();
     ArrayList<String> inbox = new ArrayList<>();
+    ArrayList<String> loanedBooks = new ArrayList<>();
 
     public User(String name, int age, String course, String department, boolean passedCaptcha, String university, String phoneNumber, String passEncrypted){
         if(passedCaptcha){
@@ -29,8 +30,14 @@ public class User {
         }
     }
     public void rentExternalBook(Book book){
-        if(Objects.equals(book.uniOfOrigin, university)){
+        if(book.uniOfOrigin == ""){
             rentedBooks.add(book);
+            String s = book.getName() + ": " + book.getLengthOfLoan() + " days left on loan.";
+            loanedBooks.add(s);
+        }else if(Objects.equals(book.uniOfOrigin, university)){
+            rentedBooks.add(book);
+            String s = book.getName() + ": " + book.getLengthOfLoan() + " days left on loan.";
+            loanedBooks.add(s);
         }else{
             System.out.println("you don't have permission!");
         }
@@ -40,6 +47,9 @@ public class User {
     public void sendToStaff(Staff staff, String message){
         staff.inbox.add(message);
 
+    }
+    public ArrayList<String> getLoanTimes(){
+        return loanedBooks;
     }
     public String toString(){
         StringBuilder s  = new StringBuilder();

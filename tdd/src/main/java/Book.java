@@ -5,8 +5,9 @@ public class Book {
     private String name;
     private String subject;
     private String department;
-     String uniOfOrigin;
+     String uniOfOrigin = "";
      private boolean available = true;
+     private int lengthOfLoan;
     private ArrayList<String> previousOwners = new ArrayList<>();
 
     public Book(String name, String subject, String uniOfOrigin){
@@ -15,12 +16,11 @@ public class Book {
         this.uniOfOrigin = uniOfOrigin;
     }
 
-    public Book(String name, String subject){
+    public Book(String name, String subject, int lengthOfLoan){
         this.name = name;
         this.subject = subject;
+        this.lengthOfLoan = lengthOfLoan;
     }
-
-
 
 
     public boolean getAvailable(){
@@ -36,6 +36,9 @@ public class Book {
     public void addToPreviousOwners(String d){
         previousOwners.add(d);
 
+    }
+    public int getLengthOfLoan(){
+        return lengthOfLoan;
     }
 
 }
