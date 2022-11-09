@@ -2,17 +2,17 @@ import java.util.ArrayList;
 
 public class Journal {
     private boolean subscriptionStatus;
-    private static int borrowTotal;
     private String name;
     private String subject;
     private String department;
     private boolean available = true;
+    private int minimumWithdrawals;
     private boolean externalAccess;
     private ArrayList<String> previousOwners = new ArrayList<>();
 
-    public Journal(String name, String subject) {
-        this.name = name;
-        this.subject = subject;
+    public Journal(int minimumWithdrawals, boolean externalAccess) {
+        this.minimumWithdrawals = minimumWithdrawals;
+        this.externalAccess = externalAccess;
     }
 
     public void setAvailable(boolean available) {
@@ -35,10 +35,6 @@ public class Journal {
         return subscriptionStatus;
     }
 
-    public static void setBorrowTotal(int borrowTotal) {
-        Journal.borrowTotal = borrowTotal;
-    }
-
     public String getName() {
         return name;
     }
@@ -51,15 +47,26 @@ public class Journal {
         return externalAccess;
     }
 
-    public static int getBorrowTotal() {
-        return borrowTotal;
-    }
-
     public String getDepartment() {
         return department;
     }
 
     public String getSubject() {
         return subject;
+    }
+
+    public int getMinimumWithdrawals() {
+        return minimumWithdrawals;
+    }
+
+    public boolean cancelSubscription(int withdrawals) {
+        if (withdrawals >= getMinimumWithdrawals() || isExternalAccess() == true) {
+            setSubscriptionStatus(true);
+            return false;
+        }
+        else {
+            setSubscriptionStatus(false);
+            return true;
+        }
     }
 }
