@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Library {
     private boolean open;
-    private ArrayList<Book> booksInLibrary = new ArrayList<Book>();
+    private ArrayList<Book> booksInLibrary = new ArrayList<>();
 
     public Library(boolean open) {
         this.open = open;
@@ -22,8 +23,10 @@ public class Library {
 
     public String searchBook(Book b) {
         for(Book i: booksInLibrary) {
-            if(b.getAvailable() && open && booksInLibrary.contains(b)) {
+            if(i.getName().equals(b.getName())){
+                if(b.getAvailable() && open) {
                 return "Book " + i.getName() + " is available.";
+                }
             }
         }
         return "Book not found";

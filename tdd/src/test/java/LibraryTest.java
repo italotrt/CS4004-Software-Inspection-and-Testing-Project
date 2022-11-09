@@ -79,5 +79,45 @@ import static org.junit.jupiter.api.Assertions.*;
                     () -> assertFalse(user2.rentedBooks.contains(canadaBook2)));
         }
 
+        @Test
+        void subscriptionTest1 () {
+            Journal j = new Journal("a", "b");
+            j.setBorrowTotal(0); // Borrow total below limit
+            j.setExternalAccess(true);  // Another Uni has access to the journal
+            assertFalse(j.isSubscriptionStatus());
+        }
+            @Test
+            void subscriptionTest2 () {
+                Journal j = new Journal("1", "2");
+                j.setBorrowTotal(10); // Borrow total above limit
+                j.setExternalAccess(false);  // Another Uni does not have access to the journal
+                assertTrue(j.isSubscriptionStatus());
+            }
+
+            @Test
+            void subscriptionTest3 () {
+                Journal j = new Journal("Yeet", "Skrrt");
+                j.setBorrowTotal(0); // Borrow total below limit
+                j.setExternalAccess(false);  // Another Uni does not have access to the journal
+                assertFalse(j.isSubscriptionStatus());
+            }
+
+            @Test
+            void subscriptionTest4 () {
+                Journal j = new Journal("Beep", "Boop");
+                j.setBorrowTotal(10); // Borrow total below limit
+                j.setExternalAccess(true);  // Another Uni has access to the journal
+                assertTrue(j.isSubscriptionStatus());
+            }
+
+        @Test
+        void testSearchIfBookIsAvailableWhenLibraryIsOpen() {
+            Library uwon = new Library(true);
+            Book bookA = new Book("Bugs","Biology");
+            uwon.addBook(bookA);
+
+            assertEquals("Book " + bookA.getName() + " is available.", uwon.searchBook(bookA));
+        }
+
 
         }
