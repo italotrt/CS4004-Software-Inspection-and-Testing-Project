@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -11,6 +12,7 @@ public class User {
     String phoneNumber;
     String passEncrypted;
     ArrayList<Book> rentedBooks = new ArrayList<>();
+    ArrayList<String> inbox = new ArrayList<>();
 
     public User(String name, int age, String course, String department, boolean passedCaptcha, String university, String phoneNumber, String passEncrypted){
         if(passedCaptcha){
@@ -32,6 +34,11 @@ public class User {
         }else{
             System.out.println("you don't have permission!");
         }
+
+    }
+
+    public void sendToStaff(Staff staff, String message){
+        staff.inbox.add(message);
 
     }
     public String toString(){

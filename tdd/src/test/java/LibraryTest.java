@@ -63,6 +63,14 @@ import static org.junit.jupiter.api.Assertions.*;
                     () -> assertEquals("0852585742", user.phoneNumber),
                     () -> assertEquals("avcafai3", user.passEncrypted));
         }
+@Test
+        void testCorrectStaffRegistration() {
+            Staff staff = new Staff("John Boyne", "LM055");
+            assertAll("User Details",
+                    () -> assertEquals("John Boyne", staff.name),
+                    () -> assertEquals("LM055", staff.course));
+
+        }
 
         @Test
         void testUserCannotWithdrawBookWithoutPerms(){
@@ -118,6 +126,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
             assertEquals("Book " + bookA.getName() + " is available.", uwon.searchBook(bookA));
         }
+        @Test
+        void UserCanSendStaffEmail(){
+            User user = new User("Mark Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
+            Staff staff = new Staff("Nicholas O Mahony", "LM051");
+            user.sendToStaff(staff, "WHAZZAP!!1");
+            assertTrue(staff.inbox.contains("WHAZZAP!!1"));
+        }
+        @Test
+        void staffCanSendUserEmail(){
+            User user = new User("Mark Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
+            Staff staff = new Staff("Nicholas O Mahony", "LM051");
+            user.sendToStaff(staff, "I am a homosexual");
+            assertTrue(staff.inbox.contains("I am a homosexual"));
+        }
+
 
 
         }
