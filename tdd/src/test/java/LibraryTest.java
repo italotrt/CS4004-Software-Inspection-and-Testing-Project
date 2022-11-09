@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
         }
 
         @Test
-        void testForUnnecessaryDuplicateBookAcquisition(){
+        void testForUnnecessaryDuplicateBookAcquisition() {
             mathsDept.rentBook(a);
             compSciDept.rentBook(a);
 
@@ -34,19 +34,49 @@ import static org.junit.jupiter.api.Assertions.*;
             assertFalse(compSciDept.getCurrentRentedBooks().contains(a));
         }
 
-    @Test
-    void testThatBooksShowPreviousOwnersCorrectly(){
+        @Test
+        void testThatBooksShowPreviousOwnersCorrectly() {
 
-    historyDept.rentBook(b);
-    int index = b.getPreviousOwners().size() -1;
+            historyDept.rentBook(b);
+            int index = b.getPreviousOwners().size() - 1;
 
-    assertEquals(b.getPreviousOwners().get(index), historyDept.getName());
-}
+            assertEquals(b.getPreviousOwners().get(index), historyDept.getName());
+        }
 
-@Test
-    void testThatBooksAreRentedCorrectly(){
-    physicsDept.rentBook(c);
-    assertTrue(physicsDept.getCurrentRentedBooks().contains(c));
+        @Test
+        void testThatBooksAreRentedCorrectly() {
+            physicsDept.rentBook(c);
+            assertTrue(physicsDept.getCurrentRentedBooks().contains(c));
 
-}
-}
+        }
+
+        @Test
+        void testCorrectUserRegistration() {
+            User user = new User("Mark Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
+            assertAll("User Details",
+                    () -> assertEquals("Mark Harrison", user.name),
+                    () -> assertEquals(19, user.age),
+                    () -> assertEquals("LM051", user.course),
+                    () -> assertEquals("Computer Science", user.department),
+                    () -> assertTrue(user.passedCaptcha),
+                    () -> assertEquals("University of Limerick", user.university),
+                    () -> assertEquals("0852585742", user.phoneNumber),
+                    () -> assertEquals("avcafai3", user.passEncrypted));
+        }
+
+        @Test
+        void testUserCannotWithdrawBookWithoutPerms(){
+            User user = new User("Canada Harrison", 19, "LM051", "Computer Science", true, "University of Ottawa", "0852585742", "avcafai3");
+            User user2 = new User("Ireland Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
+
+            Book canadaBook = new Book("Canada Rivers and Lakes", "Geography", "University of Ottawa");
+            Book canadaBook2 = new Book("Canada Mountains and Hills", "Geography", "University of Ottawa");
+
+            user.rentExternalBook(canadaBook);
+            user.rentExternalBook(canadaBook2);
+            assertAll("Can book be withdrawn",
+                    () -> assertTrue(user.rentedBooks.contains(canadaBook)),
+                    () -> assertFalse(user2.rentedBooks.contains(canadaBook2)));
+        }
+
+        }

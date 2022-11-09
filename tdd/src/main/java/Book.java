@@ -5,12 +5,19 @@ public class Book {
     private String name;
     private String subject;
     private String department;
-    private boolean available = true;
+     String uniOfOrigin;
+     private boolean available = true;
     private ArrayList<String> previousOwners = new ArrayList<>();
     public Book(String name, String subject){
         this.name = name;
         this.subject = subject;
     }
+    public Book(String name, String subject, String uniOfOrigin){
+        this.name = name;
+        this.subject = subject;
+        this.uniOfOrigin = uniOfOrigin;
+    }
+
 
 
     public boolean getAvailable(){
