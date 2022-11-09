@@ -1,4 +1,3 @@
-<<<<<<< HEAD:tdd/src/main/java/Book.java
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -9,15 +8,18 @@ public class Book {
      String uniOfOrigin;
      private boolean available = true;
     private ArrayList<String> previousOwners = new ArrayList<>();
-    public Book(String name, String subject){
-        this.name = name;
-        this.subject = subject;
-    }
+
     public Book(String name, String subject, String uniOfOrigin){
         this.name = name;
         this.subject = subject;
         this.uniOfOrigin = uniOfOrigin;
     }
+
+    public Book(String name, String subject){
+        this.name = name;
+        this.subject = subject;
+    }
+
 
 
 
@@ -37,10 +39,13 @@ public class Book {
     }
 
 }
+/*
 =======
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+*/
 
+/*
 public class Book {
     private String name;
     private String subject;
@@ -82,3 +87,4 @@ public class Book {
     }
 }
 >>>>>>> italo:src/main/java/Book.java
+*/
