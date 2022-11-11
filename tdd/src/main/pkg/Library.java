@@ -1,7 +1,6 @@
-package java;
+package pkg;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Library {
     private boolean open;
