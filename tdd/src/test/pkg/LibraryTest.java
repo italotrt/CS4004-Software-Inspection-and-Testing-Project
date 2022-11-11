@@ -158,9 +158,11 @@ import static org.junit.jupiter.api.Assertions.*;
             a.addBook(book);
             assertEquals(a.searchBookByTitle("Pizza: a villain origin story"), book);
 
-            assertThrows(SearchException.class, () -> {
+            SearchException thrown = assertThrows(SearchException.class, () -> {
                 a.searchBookByTitle("woo");
             }, "Book not found!");
+
+            assertTrue(thrown.getMessage().contains("Book not found!"));
 
         }
 
