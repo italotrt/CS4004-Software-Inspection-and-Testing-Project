@@ -165,5 +165,13 @@ import static org.junit.jupiter.api.Assertions.*;
             assertTrue(thrown.getMessage().contains("Book not found!"));
 
         }
+        @Test
+        void testBudgetRestrictions(){
+            Department d = new Department("D1");
+            d.setBudget(8000);
+            Book b =  new Book("Beans", "Bean Eating", "Bean University", "Bean department");
+            b.setPrice(100);
+            assertTrue(d.bookBudgetCheck(d.getBudget(), d.purchaseBooks(b, 60)));
+        }
 
         }
