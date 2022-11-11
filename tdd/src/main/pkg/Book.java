@@ -27,6 +27,14 @@ public class Book {
         this.department = department;
     }
 
+    public Book(String name, String subject, int lengthOfLoan, String uniOfOrigin, String department) {
+        this.name = name;
+        this.subject = subject;
+        this.lengthOfLoan = lengthOfLoan;
+        this.uniOfOrigin = uniOfOrigin;
+        this.department = department;
+    }
+
 
     public boolean getAvailable(){
         return available;
@@ -55,6 +63,13 @@ public class Book {
 
     public double getPrice(){
         return price;
+    }
+
+    public String getSubject(){
+        return subject;
+    }
+    public String getUniOfOrigin(){
+        return uniOfOrigin;
     }
 }
 /*
