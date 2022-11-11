@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Department {
     private String name;
     private ArrayList<Book> currentRentedBooks = new ArrayList<>();
-    private ArrayList<String> currentSubscriptions = new ArrayList<>();
 
     public Department(String name){
         this.name = name;
@@ -24,18 +23,11 @@ public class Department {
             System.out.println("Book is already rented");
         }
     }
-
-    public ArrayList<String> getCurrentSubscriptions() {
-        return currentSubscriptions;
-    }
-
     public String getName(){
         return name;
     }
 
-    public void subscribe(Journal j){
-       currentSubscriptions.add(j.getName());
-    }
+
 }/*
 =======
 import java.util.ArrayList;
