@@ -84,4 +84,19 @@ public class CoverageTesting {
         newLib.setOpen(true);
         assertTrue(newLib.isOpen());
     }
+
+    @Test
+    void testJournalGettersSettersConstructor(){
+        Journal j = new Journal("Beans", "Stink", "Biology", true, 40, true);
+        assertAll("Journal Constructor and getter Details",
+                () -> assertInstanceOf(Journal.class, j),
+                () -> assertEquals("Beans", j.getName()),
+                () -> assertEquals("Stink", j.getSubject()),
+                () -> assertEquals(true, j.isAvailable()),
+                () -> assertEquals(40, j.getMinimumWithdrawals()),
+                () -> assertEquals("Biology", j.getDepartment()),
+                () -> assertEquals(true, j.isExternalAccess())
+        );
+    }
+
 }

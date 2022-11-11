@@ -16,6 +16,15 @@ public class Journal {
         this.name = name;
     }
 
+    public Journal(String name, String subject, String department, boolean available, int minimumWithdrawals, boolean externalAccess){
+        this.name = name;
+        this.subject = subject;
+        this.department = department;
+        this.available = available;
+        this.minimumWithdrawals = minimumWithdrawals;
+        this.externalAccess = externalAccess;
+    }
+
     public void setAvailable(boolean available) {
         this.available = available;
     }
@@ -62,4 +71,17 @@ public class Journal {
     public void setMinimumWithdrawals(int i) {
         minimumWithdrawals = i;
     }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
 }
+
