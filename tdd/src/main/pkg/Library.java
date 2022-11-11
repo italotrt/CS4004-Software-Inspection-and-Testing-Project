@@ -32,4 +32,14 @@ public class Library {
         }
         return "Book not found";
     }
+
+    public Book searchBookByTitle(String title) throws SearchException {
+        Book foundBook = null;
+        for(Book book : booksInLibrary) {
+            if(!book.getName().equalsIgnoreCase(title)) continue;
+            return book;
+        }
+
+        throw new SearchException("Book not found!");
+    }
 }
