@@ -33,8 +33,23 @@ public class Library {
         return "Book not found";
     }
 
+    public boolean bookExists(Book b) {
+        if(!open) return false;
+        for(Book i: booksInLibrary) {
+            if(i.getName().equals(b.getName())){
+                if(b.getAvailable()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
     public Book searchBookByTitle(String title) throws SearchException {
-        Book foundBook = null;
         for(Book book : booksInLibrary) {
             if(!book.getName().equalsIgnoreCase(title)) continue;
             return book;
