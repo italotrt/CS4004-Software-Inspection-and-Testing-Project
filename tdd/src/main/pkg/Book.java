@@ -34,6 +34,11 @@ public class Book {
         this.uniOfOrigin = uniOfOrigin;
         this.department = department;
     }
+    public Book(String name, String subject, String department) {
+        this.name = name;
+        this.subject = subject;
+        this.department = department;
+    }
 
 
     public boolean getAvailable(){

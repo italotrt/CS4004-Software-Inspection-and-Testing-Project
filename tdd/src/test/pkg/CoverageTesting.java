@@ -21,7 +21,7 @@ public class CoverageTesting {
     //coverage testing for each method and condition in Book
 
     @Test
-    void testIfExternalBookIsConstructedProperly(){
+    void testIfExternalBookWithLoanIsConstructedProperly(){
     Book b = new Book("Italo", "Brazil", 6 ,"Sao Paolo", "Linguistics");
     assertAll("Book construcor details",
             () -> assertInstanceOf(Book.class, b),
@@ -34,13 +34,12 @@ public class CoverageTesting {
     }
 
     @Test
-    void testIfExternalBookWithLoanIsConstructedProperly(){
-        Book b = new Book("Nick", "Gingers", 4, "Hair");
+    void testIfBookWithoutLoanIsConstructedProperly(){
+        Book b = new Book("Nick", "Gingers", "Hair");
         assertAll("Book constructor details",
                 () -> assertInstanceOf(Book.class, b),
                 () -> assertEquals("Nick",b.getName()),
                 () -> assertEquals("Gingers", b.getSubject()),
-                () -> assertEquals(4, b.getLengthOfLoan()),
                 () -> assertEquals("Hair", b.getDepartment())
         );
     }
@@ -55,19 +54,45 @@ public class CoverageTesting {
                 () -> assertEquals("Hair", b.getDepartment())
         );
     }
+    @Test
+    void testGetAndSetPrice(){
+        Book b = new Book("Italo", "Brazil", 6 ,"Sao Paolo", "Linguistics");
+        b.setPrice(10);
+        assertEquals(10,b.getPrice());
+    }
+
+    @Test
+    void testGetAndSetAvailable(){
+        Book b = new Book("Italo", "Brazil", 6 ,"Sao Paolo", "Linguistics");
+        b.setAvailable(false);
+        assertFalse(b.getAvailable());
+    }
+
+    @Test
+    void testAddAndGetPreviousOwners(){
+        Book b = new Book("Italo", "Brazil", 6 ,"Sao Paolo", "Linguistics");
+        User a = new User("Mark",19,"Lm121","Computer Science",true, "University of Limerick", "0852260882", "fafiw3");
+        b.addToPreviousOwners(a.name);
+        assertTrue(b.getPreviousOwners().contains(a.name));
+    }
+
 
     @Test
     void testIfExternalBookWithoutLoanIsConstructedProperly(){
-        Book b = new Book("Sam", "Javascript", 3, "Ennis", "Losers");
+        Book b = new Book("Sam", "Javascript","Ennis", "Losers");
 
         assertAll("Book constructor details",
                 () -> assertInstanceOf(Book.class, b),
                 () -> assertEquals("Sam",b.getName()),
                 () -> assertEquals("Javascript", b.getSubject()),
-                () -> assertEquals(3, b.getLengthOfLoan()),
                 () -> assertEquals("Ennis", b.getUniOfOrigin()),
                 () -> assertEquals("Losers", b.getDepartment())
         );
+    }
+
+    @Test
+    void testRemainingGetters(){
+
     }
     @Test
     void testSearchBook() {
