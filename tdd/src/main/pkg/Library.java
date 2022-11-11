@@ -22,19 +22,23 @@ public class Library {
         this.open = open;
     }
 
-    public String searchBook(Book b) {
+    public boolean searchBook(Book b) {
+        if(!open) return false;
         for(Book i: booksInLibrary) {
             if(i.getName().equals(b.getName())){
-                if(b.getAvailable() && open) {
-                return "Book " + i.getName() + " is available.";
+                if(b.getAvailable()) {
+                    return true;
                 }
             }
         }
-        return "Book not found";
+        return false;
+    }
+
+    public boolean isOpen() {
+        return open;
     }
 
     public Book searchBookByTitle(String title) throws SearchException {
-        Book foundBook = null;
         for(Book book : booksInLibrary) {
             if(!book.getName().equalsIgnoreCase(title)) continue;
             return book;

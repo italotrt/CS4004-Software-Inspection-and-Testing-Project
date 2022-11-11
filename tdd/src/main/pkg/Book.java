@@ -7,6 +7,7 @@ public class Book {
     private String name;
     private String subject;
     private String department;
+    private double price;
      String uniOfOrigin = "";
      private boolean available = true;
      private int lengthOfLoan;
@@ -48,6 +49,13 @@ public class Book {
         return lengthOfLoan;
     }
 
+    public void setPrice(double i) {
+        price = i;
+    }
+
+    public double getPrice(){
+        return price;
+    }
 }
 /*
 =======
