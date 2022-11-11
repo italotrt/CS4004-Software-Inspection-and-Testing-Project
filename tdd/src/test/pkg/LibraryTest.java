@@ -181,32 +181,21 @@ class LibraryTest {
         }, "Book not found!");
 
         assertTrue(thrown.getMessage().contains("Book not found!"));
-
-    @Test
-    void testBudgetRestrictions(){
-        Department d = new Department("D1");
-        d.setBudget(8000);
-        Book b =  new Book("Beans", "Bean Eating", "Bean University", "Bean department");
-        b.setPrice(100);
-        assertTrue(d.bookBudgetCheck(d.getBudget(), d.purchaseBooks(b, 60)));
     }
 
-    @Test
-    void testSearchIfBookIsAvailableWhenLibraryIsOpen() {
-        uwon.setOpen(true);
-        assertEquals(true, uwon.searchBook(a));
-    }
+        @Test
+        void testSearchIfBookIsAvailableWhenLibraryIsOpen () {
+            uwon.setOpen(true);
+            assertEquals(true, uwon.searchBook(a));
+        }
 
-    @Test
-    void testSearchIfBookIsAvailableWhenLibraryIsClosed() {
-        uwon.setOpen(false);
-        assertEquals(false, uwon.searchBook(a));
-    }
-}
+        @Test
+        void testSearchIfBookIsAvailableWhenLibraryIsClosed () {
+            uwon.setOpen(false);
+            assertEquals(false, uwon.searchBook(a));
+        }
 
-    }
-
-    @Test
+        @Test
     void testBudgetRestrictions() {
         Department d = new Department("D1");
         d.setBudget(8000);
