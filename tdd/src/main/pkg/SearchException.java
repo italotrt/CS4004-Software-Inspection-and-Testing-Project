@@ -1,7 +1,7 @@
 package pkg;
 
-public class BookNotFound extends Exception{
-    public BookNotFound(String errorMessage) {
+public class SearchException extends Exception{
+    public SearchException(String errorMessage) {
         super(errorMessage);
     }
 }
