@@ -27,7 +27,6 @@ public class Book {
         this.department = department;
     }
 
-<<<<<<< HEAD
     public Book(String name, String subject, int lengthOfLoan, String uniOfOrigin, String department) {
         this.name = name;
         this.subject = subject;
@@ -38,9 +37,6 @@ public class Book {
 
 
     public boolean getAvailable(){
-=======
-    public boolean getAvailable() {
->>>>>>> main
         return available;
     }
 
