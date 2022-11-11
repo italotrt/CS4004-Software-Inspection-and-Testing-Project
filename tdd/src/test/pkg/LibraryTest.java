@@ -15,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
         @BeforeAll
         public static void setUp() {
-            a = new Book("Introduction to Sahir Sharma", "Idiots in computer science", 14);
-            b = new Book("Maths and stuff!", "Maths", 14);
-            c = new Book("Biology", "Biology", 21);
+            a = new Book("Introduction to Sahir Sharma", "Idiots in computer science", 14, "A1");
+            b = new Book("Maths and stuff!", "Maths", 14, "A1");
+            c = new Book("Biology", "Biology", 21, "A1");
             historyDept = new Department("History");
             compSciDept = new Department("Computer Science");
             physicsDept = new Department("Physics");
@@ -78,8 +78,8 @@ import static org.junit.jupiter.api.Assertions.*;
             User user = new User("Canada Harrison", 19, "LM051", "Computer Science", true, "University of Ottawa", "0852585742", "avcafai3");
             User user2 = new User("Ireland Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
 
-            Book canadaBook = new Book("Canada Rivers and Lakes", "Geography", "University of Ottawa");
-            Book canadaBook2 = new Book("Canada Mountains and Hills", "Geography", "University of Ottawa");
+            Book canadaBook = new Book("Canada Rivers and Lakes", "Geography", "University of Ottawa", "A1");
+            Book canadaBook2 = new Book("Canada Mountains and Hills", "Geography", "University of Ottawa", "A1");
 
             user.rentExternalBook(canadaBook);
             user.rentExternalBook(canadaBook2);
@@ -131,7 +131,7 @@ import static org.junit.jupiter.api.Assertions.*;
         }
         @Test
         void testIfLoanTimeIsAccurate(){
-            Book book = new Book("How to Analytics", "Statistics", 3);
+            Book book = new Book("How to Analytics", "Statistics", 3, "A1");
             User user = new User("Mark Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
             user.rentExternalBook(book);
             user.rentExternalBook(a);
@@ -145,5 +145,18 @@ import static org.junit.jupiter.api.Assertions.*;
         }
 
 
+        @Test
+        void testSearchSystem() throws SearchException {
+            Book book = new Book("Pizza: A Villain Origin Story", "Religion", 3, "A1");
+            assertTrue(book.getDepartment().length() > 0);
+            Library a = new Library(true);
+            a.addBook(book);
+            assertEquals(a.searchBookByTitle("Pizza: a villain origin story"), book);
+
+            SearchException thrown = assertThrows(SearchException.class, () -> {
+                a.searchBookByTitle("woo");
+            }, "Book not found!");
+
+        }
 
         }
