@@ -8,9 +8,9 @@ public class Book {
     private String subject;
     private String department;
     private double price;
-     String uniOfOrigin = "";
-     private boolean available = true;
-     private int lengthOfLoan;
+    String uniOfOrigin = "";
+    private boolean available = true;
+    private int lengthOfLoan;
     private ArrayList<String> previousOwners = new ArrayList<>();
 
     public Book(String name, String subject, String uniOfOrigin, String department) {
@@ -20,13 +20,14 @@ public class Book {
         this.department = department;
     }
 
-    public Book(String name, String subject, int lengthOfLoan, String department){
+    public Book(String name, String subject, int lengthOfLoan, String department) {
         this.name = name;
         this.subject = subject;
         this.lengthOfLoan = lengthOfLoan;
         this.department = department;
     }
 
+<<<<<<< HEAD
     public Book(String name, String subject, int lengthOfLoan, String uniOfOrigin, String department) {
         this.name = name;
         this.subject = subject;
@@ -37,23 +38,34 @@ public class Book {
 
 
     public boolean getAvailable(){
+=======
+    public boolean getAvailable() {
+>>>>>>> main
         return available;
     }
-    public String getName(){return name;}
+
+    public String getName() {
+        return name;
+    }
+
     public String getDepartment() {
         return department;
     }
-    public ArrayList<String> getPreviousOwners(){
+
+    public ArrayList<String> getPreviousOwners() {
         return previousOwners;
     }
-    public void setAvailable(boolean b){
+
+    public void setAvailable(boolean b) {
         available = b;
     }
-    public void addToPreviousOwners(String d){
+
+    public void addToPreviousOwners(String d) {
         previousOwners.add(d);
 
     }
-    public int getLengthOfLoan(){
+
+    public int getLengthOfLoan() {
         return lengthOfLoan;
     }
 
@@ -61,7 +73,7 @@ public class Book {
         price = i;
     }
 
-    public double getPrice(){
+    public double getPrice() {
         return price;
     }
 
@@ -72,6 +84,7 @@ public class Book {
         return uniOfOrigin;
     }
 }
+
 /*
 =======
 import java.lang.reflect.Array;

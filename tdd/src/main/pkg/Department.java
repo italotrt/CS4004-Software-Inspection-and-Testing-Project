@@ -5,45 +5,55 @@ import java.util.ArrayList;
 public class Department {
     private String name;
     private double budget;
+    private ArrayList<Book> departmentBooks = new ArrayList<>();
     private ArrayList<Book> currentRentedBooks = new ArrayList<>();
+    private ArrayList<String> currentSubscriptions = new ArrayList<>();
 
-    public Department(String name){
+    public Department(String name) {
         this.name = name;
     }
 
-    public ArrayList<Book> getCurrentRentedBooks(){
+    public ArrayList<Book> getCurrentRentedBooks() {
         return currentRentedBooks;
     }
 
-    public void rentBook(Book b){
-        if(b.getAvailable()){
+    public ArrayList<Book> getDepartmentBooks() {
+        return departmentBooks;
+    }
+
+    public void rentBook(Book b) {
+        if (b.getAvailable()) {
             b.setAvailable(false);
             currentRentedBooks.add(b);
             b.addToPreviousOwners(name);
-        }else{
+        } else {
             System.out.println("Book is already rented");
         }
     }
-    public String getName(){
+
+    public ArrayList<String> getCurrentSubscriptions() {
+        return currentSubscriptions;
+    }
+
+    public void subscribe(Journal j) {
+        currentSubscriptions.add(j.getName());
+    }
+
+    public String getName() {
         return name;
     }
 
-    public double purchaseBooks(Book b, double total){
-        double totalSpend = b.getPrice()*total;
-        return totalSpend;
+    public void purchaseBooks(Book b, double total) {
+        double totalSpend = b.getPrice() * total;
+        if (budget >= totalSpend) {
+            departmentBooks.add(b);
+        }
     }
 
     public double getBudget() {
         return budget;
     }
 
-    public boolean bookBudgetCheck(double budget, double spent){
-        if(budget - spent >= 0){
-            return true;
-        } else {
-            return false;
-        }
-    }
     public void setBudget(double i) {
         budget = i;
     }

@@ -100,25 +100,33 @@ class LibraryTest {
     //Testing for unnecessary subscriptions to journals with limited interest || access is available via external universities
     @Test
     void TestIfSubscriptionCancelsIfWithdrawalsAboveLimitAndExternalAccessIsTrue() {
-        Journal j = new Journal(1, true);
+        Journal j = new Journal("a");
+        j.setExternalAccess(true);
+        j.setMinimumWithdrawals(1);
         assertFalse(j.cancelSubscription(5));
     }
 
     @Test
     void TestIfSubscriptionCancelsIfWithdrawalsBelowLimitAndExternalAccessIsFalse() {
-        Journal j = new Journal(1, false);
+        Journal j = new Journal("b");
+        j.setExternalAccess(false);
+        j.setMinimumWithdrawals(1);
         assertTrue(j.cancelSubscription(0));
     }
 
     @Test
     void TestIfSubscriptionCancelsIfWithdrawalsAboveLimitAndExternalAccessIsFalse() {
-        Journal j = new Journal(1, false);
+        Journal j = new Journal("c");
+        j.setExternalAccess(false);
+        j.setMinimumWithdrawals(1);
         assertFalse(j.cancelSubscription(5000));
     }
 
     @Test
     void TestIfSubscriptionCancelsIfWithdrawalsBelowLimitAndExternalAccessIsTrue() {
-        Journal j = new Journal(600, true);
+        Journal j = new Journal("d");
+        j.setExternalAccess(true);
+        j.setMinimumWithdrawals(600);
         assertFalse(j.cancelSubscription(24));
     }
 
@@ -154,7 +162,6 @@ class LibraryTest {
 
     }
 
-
     @Test
     void bookHasValidDepartment() {
         Book book = new Book("Pizza: A Villain Origin Story", "Religion", 3, "A1");
@@ -171,17 +178,8 @@ class LibraryTest {
         SearchException thrown = assertThrows(SearchException.class, () -> {
             a.searchBookByTitle("woo");
         }, "Book not found!");
+
         assertTrue(thrown.getMessage().contains("Book not found!"));
-
-    }
-
-    @Test
-    void testBudgetRestrictions(){
-        Department d = new Department("D1");
-        d.setBudget(8000);
-        Book b =  new Book("Beans", "Bean Eating", "Bean University", "Bean department");
-        b.setPrice(100);
-        assertTrue(d.bookBudgetCheck(d.getBudget(), d.purchaseBooks(b, 60)));
     }
 
     @Test
@@ -195,4 +193,46 @@ class LibraryTest {
         uwon.setOpen(false);
         assertEquals(false, uwon.searchBook(a));
     }
+
+    @Test
+    void testBudgetRestrictions() {
+        Department d = new Department("D1");
+        d.setBudget(8000);
+        Book b = new Book("Beans", "Bean Eating", "Bean University", "Bean department");
+        b.setPrice(100);
+        d.purchaseBooks(b, 90);
+        assertFalse(d.getDepartmentBooks().contains(b));
+    }
+
+    @Test
+    void functionalityOfJournalSubscriptionForDepartments() {
+        Department d = new Department("d");
+        d.subscribe(new Journal("Men's Digestives"));
+        assertTrue(d.getCurrentSubscriptions().contains("Men's Digestives"));
+    }
+
+    @Test
+    void userReturnedBook(){
+        User u = new User( "Bob",20, "LM051", "CS", true, "Yeet", "1234", "12-10103i4920jf0n");
+        Book b = new Book("CompSci for nerds", "CompSci", "UL", "CSIS;");
+        u.returnedBookState(b, true, false);
+        assertTrue(u.returnedBooks.contains(b));
+    }
+
+    @Test
+    void userStealsBook(){
+        User u = new User( "Bob",20, "LM051", "CS", true, "Yeet", "1234", "12-10103i4920jf0n");
+        Book b = new Book("CompSci for nerds", "CompSci", "UL", "CSIS;");
+        u.returnedBookState(b, false, false);
+        assertTrue(u.damagedOrStolenBooks.contains(b));
+    }
+
+    @Test
+    void trackUsersDamagesBook(){
+        User u = new User( "Bob",20, "LM051", "CS", true, "Yeet", "1234", "12-10103i4920jf0n");
+        Book b = new Book("CompSci for nerds", "CompSci", "UL", "CSIS;");
+        u.returnedBookState(b, true, true);
+        assertTrue(u.damagedOrStolenBooks.contains(b));
+    }
+    
 }
