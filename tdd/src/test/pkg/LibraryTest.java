@@ -146,14 +146,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
         @Test
-        void testSearchSystem() throws SearchException {
+        void bookHasValidDepartment() {
             Book book = new Book("Pizza: A Villain Origin Story", "Religion", 3, "A1");
             assertTrue(book.getDepartment().length() > 0);
+        }
+
+        @Test
+        void testSearchSystem() throws SearchException {
+            Book book = new Book("Pizza: A Villain Origin Story", "Religion", 3, "A1");
             Library a = new Library(true);
             a.addBook(book);
             assertEquals(a.searchBookByTitle("Pizza: a villain origin story"), book);
 
-            SearchException thrown = assertThrows(SearchException.class, () -> {
+            assertThrows(SearchException.class, () -> {
                 a.searchBookByTitle("woo");
             }, "Book not found!");
 
