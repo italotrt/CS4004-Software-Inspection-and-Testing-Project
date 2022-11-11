@@ -130,7 +130,6 @@ class LibraryTest {
         assertFalse(j.cancelSubscription(24));
     }
 
-
     @Test
     void UserCanSendStaffEmail() {
         User user = new User("Mark Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
@@ -161,7 +160,6 @@ class LibraryTest {
         );
 
     }
-
 
     @Test
     void bookHasValidDepartment() {
