@@ -19,8 +19,8 @@ public class CoverageTesting {
     void testSearchBook() {
         b.addBook(a);
         Book nonExist = new Book("no", "no", 2, "A1");
-        assertTrue(b.bookExists(a));
-        assertFalse(b.bookExists(nonExist));
+        assertTrue(b.searchBook(a));
+        assertFalse(b.searchBook(nonExist));
     }
 
     @Test

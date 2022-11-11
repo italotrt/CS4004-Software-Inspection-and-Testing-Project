@@ -22,18 +22,7 @@ public class Library {
         this.open = open;
     }
 
-    public String searchBook(Book b) {
-        for(Book i: booksInLibrary) {
-            if(i.getName().equals(b.getName())){
-                if(b.getAvailable() && open) {
-                return "Book " + i.getName() + " is available.";
-                }
-            }
-        }
-        return "Book not found";
-    }
-
-    public boolean bookExists(Book b) {
+    public boolean searchBook(Book b) {
         if(!open) return false;
         for(Book i: booksInLibrary) {
             if(i.getName().equals(b.getName())){
