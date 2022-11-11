@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Department {
     private String name;
     private double budget;
-    private ArrayList<Book> departmentBooks =  new ArrayList<>();
+    private ArrayList<Book> departmentBooks = new ArrayList<>();
     private ArrayList<Book> currentRentedBooks = new ArrayList<>();
     private ArrayList<String> currentSubscriptions = new ArrayList<>();
 
@@ -45,7 +45,7 @@ public class Department {
 
     public void purchaseBooks(Book b, double total) {
         double totalSpend = b.getPrice() * total;
-        if(budget >= totalSpend) {
+        if (budget >= totalSpend) {
             departmentBooks.add(b);
         }
     }

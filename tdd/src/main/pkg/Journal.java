@@ -53,8 +53,7 @@ public class Journal {
         if (withdrawals >= getMinimumWithdrawals() || isExternalAccess() == true) {
             setSubscriptionStatus(true);
             return false;
-        }
-        else {
+        } else {
             setSubscriptionStatus(false);
             return true;
         }

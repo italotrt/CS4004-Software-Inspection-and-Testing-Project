@@ -7,11 +7,13 @@ public class Staff {
     String course;
 
     ArrayList<String> inbox = new ArrayList<>();
-    public Staff(String name, String course){
+
+    public Staff(String name, String course) {
         this.name = name;
         this.course = course;
     }
-    public void sendToUser(User user, String message){
+
+    public void sendToUser(User user, String message) {
         user.inbox.add(message);
     }
 }
