@@ -12,9 +12,8 @@ public class Journal {
     private boolean externalAccess;
     private ArrayList<String> previousOwners = new ArrayList<>();
 
-    public Journal(int minimumWithdrawals, boolean externalAccess) {
-        this.minimumWithdrawals = minimumWithdrawals;
-        this.externalAccess = externalAccess;
+    public Journal(String name) {
+        this.name = name;
     }
 
     public void setAvailable(boolean available) {
@@ -45,6 +44,10 @@ public class Journal {
         externalAccess = a;
     }
 
+    public void setMinimumWithdrawals(int minimumWithdrawals) {
+        this.minimumWithdrawals = minimumWithdrawals;
+    }
+
     public boolean isExternalAccess() {
         return externalAccess;
     }
@@ -65,8 +68,7 @@ public class Journal {
         if (withdrawals >= getMinimumWithdrawals() || isExternalAccess() == true) {
             setSubscriptionStatus(true);
             return false;
-        }
-        else {
+        } else {
             setSubscriptionStatus(false);
             return true;
         }
