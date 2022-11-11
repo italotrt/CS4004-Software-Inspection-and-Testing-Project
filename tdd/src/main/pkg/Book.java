@@ -12,16 +12,18 @@ public class Book {
      private int lengthOfLoan;
     private ArrayList<String> previousOwners = new ArrayList<>();
 
-    public Book(String name, String subject, String uniOfOrigin){
+    public Book(String name, String subject, String uniOfOrigin, String department) {
         this.name = name;
         this.subject = subject;
         this.uniOfOrigin = uniOfOrigin;
+        this.department = department;
     }
 
-    public Book(String name, String subject, int lengthOfLoan){
+    public Book(String name, String subject, int lengthOfLoan, String department){
         this.name = name;
         this.subject = subject;
         this.lengthOfLoan = lengthOfLoan;
+        this.department = department;
     }
 
 
@@ -29,6 +31,9 @@ public class Book {
         return available;
     }
     public String getName(){return name;}
+    public String getDepartment() {
+        return department;
+    }
     public ArrayList<String> getPreviousOwners(){
         return previousOwners;
     }
