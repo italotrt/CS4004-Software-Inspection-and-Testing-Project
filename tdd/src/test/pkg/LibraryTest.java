@@ -19,6 +19,7 @@ class LibraryTest {
 
     @BeforeAll
     public static void setUp() {
+        uwon = new Library(true);
         a = new Book("Introduction to Sahir Sharma", "Idiots in computer science", 14, "A1");
         b = new Book("Maths and stuff!", "Maths", 14, "A1");
         c = new Book("Biology", "Biology", 21, "A1");
@@ -170,24 +171,28 @@ class LibraryTest {
         SearchException thrown = assertThrows(SearchException.class, () -> {
             a.searchBookByTitle("woo");
         }, "Book not found!");
-        }
-        @Test
-        void testBudgetRestrictions(){
-            Department d = new Department("D1");
-            d.setBudget(8000);
-            Book b =  new Book("Beans", "Bean Eating", "Bean University", "Bean department");
-            b.setPrice(100);
-            assertTrue(d.bookBudgetCheck(d.getBudget(), d.purchaseBooks(b, 60)));
-        }
-
         assertTrue(thrown.getMessage().contains("Book not found!"));
 
     }
 
-    @ParameterizedTest
-    @ValueSource(booleans = {true, false})
-    void testSearchIfBookIsAvailableWhenLibraryIsOpen(boolean b) {
-        uwon.setOpen(b);
-        assertEquals("Book " + a.getName() + " is available.", uwon.searchBook(a));
+    @Test
+    void testBudgetRestrictions(){
+        Department d = new Department("D1");
+        d.setBudget(8000);
+        Book b =  new Book("Beans", "Bean Eating", "Bean University", "Bean department");
+        b.setPrice(100);
+        assertTrue(d.bookBudgetCheck(d.getBudget(), d.purchaseBooks(b, 60)));
+    }
+
+    @Test
+    void testSearchIfBookIsAvailableWhenLibraryIsOpen() {
+        uwon.setOpen(true);
+        assertEquals(true, uwon.searchBook(a));
+    }
+
+    @Test
+    void testSearchIfBookIsAvailableWhenLibraryIsClosed() {
+        uwon.setOpen(false);
+        assertEquals(false, uwon.searchBook(a));
     }
 }
