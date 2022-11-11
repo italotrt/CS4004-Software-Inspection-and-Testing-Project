@@ -23,10 +23,10 @@ public class Library {
     }
 
     public boolean searchBook(Book b) {
-        if(!open) return false;
-        for(Book i: booksInLibrary) {
-            if(i.getName().equals(b.getName())){
-                if(b.getAvailable()) {
+        if (!open) return false;
+        for (Book i : booksInLibrary) {
+            if (i.getName().equals(b.getName())) {
+                if (b.getAvailable()) {
                     return true;
                 }
             }
@@ -39,8 +39,8 @@ public class Library {
     }
 
     public Book searchBookByTitle(String title) throws SearchException {
-        for(Book book : booksInLibrary) {
-            if(!book.getName().equalsIgnoreCase(title)) continue;
+        for (Book book : booksInLibrary) {
+            if (!book.getName().equalsIgnoreCase(title)) continue;
             return book;
         }
 

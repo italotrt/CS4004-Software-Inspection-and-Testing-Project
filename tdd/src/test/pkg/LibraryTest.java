@@ -181,19 +181,19 @@ class LibraryTest {
         assertTrue(thrown.getMessage().contains("Book not found!"));
     }
 
-        @Test
-        void testSearchIfBookIsAvailableWhenLibraryIsOpen () {
-            uwon.setOpen(true);
-            assertEquals(true, uwon.searchBook(a));
-        }
+    @Test
+    void testSearchIfBookIsAvailableWhenLibraryIsOpen() {
+        uwon.setOpen(true);
+        assertEquals(true, uwon.searchBook(a));
+    }
 
-        @Test
-        void testSearchIfBookIsAvailableWhenLibraryIsClosed () {
-            uwon.setOpen(false);
-            assertEquals(false, uwon.searchBook(a));
-        }
+    @Test
+    void testSearchIfBookIsAvailableWhenLibraryIsClosed() {
+        uwon.setOpen(false);
+        assertEquals(false, uwon.searchBook(a));
+    }
 
-        @Test
+    @Test
     void testBudgetRestrictions() {
         Department d = new Department("D1");
         d.setBudget(8000);
@@ -210,4 +210,28 @@ class LibraryTest {
         assertTrue(d.getCurrentSubscriptions().contains("Men's Digestives"));
     }
 
+    @Test
+    void userReturnedBook(){
+        User u = new User( "Bob",20, "LM051", "CS", true, "Yeet", "1234", "12-10103i4920jf0n");
+        Book b = new Book("CompSci for nerds", "CompSci", "UL", "CSIS;");
+        u.returnedBookState(b, true, false);
+        assertTrue(u.returnedBooks.contains(b));
+    }
+
+    @Test
+    void userStealsBook(){
+        User u = new User( "Bob",20, "LM051", "CS", true, "Yeet", "1234", "12-10103i4920jf0n");
+        Book b = new Book("CompSci for nerds", "CompSci", "UL", "CSIS;");
+        u.returnedBookState(b, false, false);
+        assertTrue(u.damagedOrStolenBooks.contains(b));
+    }
+
+    @Test
+    void trackUsersDamagesBook(){
+        User u = new User( "Bob",20, "LM051", "CS", true, "Yeet", "1234", "12-10103i4920jf0n");
+        Book b = new Book("CompSci for nerds", "CompSci", "UL", "CSIS;");
+        u.returnedBookState(b, true, true);
+        assertTrue(u.damagedOrStolenBooks.contains(b));
+    }
+    
 }
