@@ -13,6 +13,7 @@ public class User {
     String phoneNumber;
     String passEncrypted;
     ArrayList<Book> rentedBooks = new ArrayList<>();
+    ArrayList<Book> reservedBooks = new ArrayList<>();
     ArrayList<String> inbox = new ArrayList<>();
     ArrayList<String> loanedBooks = new ArrayList<>();
     ArrayList<Book> damagedOrStolenBooks = new ArrayList<>();
@@ -31,6 +32,26 @@ public class User {
         } else {
             System.out.println("Captcha failed. Account could not be created");
         }
+    }
+
+    //TODO just an idea, we can work on it
+    public void sendMessage(String message){
+        System.out.printf("Number %s: %s", phoneNumber, message);
+    }
+
+    public void reserveBook(Book book) {
+
+        if (book.isReserved()) {
+            System.out.println("Book is already reserved");
+        }
+        else if (book.getAvailable()) {
+            System.out.println("Book is available and thus cannot be reserved");
+        }
+        else if (!book.getAvailable() && !book.isReserved()) {
+            book.setReserved(true);
+            System.out.printf("Book: %s has been reserved", book.getName());
+        }
+
     }
 
     public void rentExternalBook(Book book) {
