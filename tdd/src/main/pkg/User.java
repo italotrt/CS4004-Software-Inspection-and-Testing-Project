@@ -72,4 +72,36 @@ public class User {
             s.append(String.format("Name: %s %nAge: %d %nCourse: %s %nDepartment: %s %nPhone Number: %s %nUniversity: %s", name, age, course, department, phoneNumber, university));
             return s.toString();
         }
+
+    public String getDepartment() {
+        return department;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public boolean isPassedCaptcha() {
+        return passedCaptcha;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getUniversity() {
+        return university;
+    }
+
+    public String getPassEncrypted() {
+        return passEncrypted;
+    }
+}

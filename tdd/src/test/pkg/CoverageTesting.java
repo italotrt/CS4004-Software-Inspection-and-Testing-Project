@@ -21,69 +21,71 @@ public class CoverageTesting {
     //coverage testing for each method and condition in Book
 
     @Test
-    void testIfExternalBookWithLoanIsConstructedProperly(){
-    Book b = new Book("Italo", "Brazil", 6 ,"Sao Paolo", "Linguistics");
-    assertAll("Book construcor details",
-            () -> assertInstanceOf(Book.class, b),
-            () -> assertEquals("Italo",b.getName()),
-            () -> assertEquals("Brazil", b.getSubject()),
-            () -> assertEquals(6, b.getLengthOfLoan()),
-            () -> assertEquals("Sao Paolo", b.getUniOfOrigin()),
-            () -> assertEquals("Linguistics", b.getDepartment())
-                    );
+    void testIfExternalBookWithLoanIsConstructedProperly() {
+        Book b = new Book("Italo", "Brazil", 6, "Sao Paolo", "Linguistics");
+        assertAll("Book construcor details",
+                () -> assertInstanceOf(Book.class, b),
+                () -> assertEquals("Italo", b.getName()),
+                () -> assertEquals("Brazil", b.getSubject()),
+                () -> assertEquals(6, b.getLengthOfLoan()),
+                () -> assertEquals("Sao Paolo", b.getUniOfOrigin()),
+                () -> assertEquals("Linguistics", b.getDepartment())
+        );
     }
 
     @Test
-    void testIfBookWithoutLoanIsConstructedProperly(){
+    void testIfBookWithoutLoanIsConstructedProperly() {
         Book b = new Book("Nick", "Gingers", "Hair");
         assertAll("Book constructor details",
                 () -> assertInstanceOf(Book.class, b),
-                () -> assertEquals("Nick",b.getName()),
+                () -> assertEquals("Nick", b.getName()),
                 () -> assertEquals("Gingers", b.getSubject()),
                 () -> assertEquals("Hair", b.getDepartment())
         );
     }
+
     @Test
-    void testIfBookWithLoanIsConstructedProperly(){
+    void testIfBookWithLoanIsConstructedProperly() {
         Book b = new Book("Nick", "Gingers", 4, "Hair");
         assertAll("Book constructor details",
                 () -> assertInstanceOf(Book.class, b),
-                () -> assertEquals("Nick",b.getName()),
+                () -> assertEquals("Nick", b.getName()),
                 () -> assertEquals("Gingers", b.getSubject()),
                 () -> assertEquals(4, b.getLengthOfLoan()),
                 () -> assertEquals("Hair", b.getDepartment())
         );
     }
+
     @Test
-    void testGetAndSetPrice(){
-        Book b = new Book("Italo", "Brazil", 6 ,"Sao Paolo", "Linguistics");
+    void testGetAndSetPrice() {
+        Book b = new Book("Italo", "Brazil", 6, "Sao Paolo", "Linguistics");
         b.setPrice(10);
-        assertEquals(10,b.getPrice());
+        assertEquals(10, b.getPrice());
     }
 
     @Test
-    void testGetAndSetAvailable(){
-        Book b = new Book("Italo", "Brazil", 6 ,"Sao Paolo", "Linguistics");
+    void testGetAndSetAvailable() {
+        Book b = new Book("Italo", "Brazil", 6, "Sao Paolo", "Linguistics");
         b.setAvailable(false);
         assertFalse(b.getAvailable());
     }
 
     @Test
-    void testAddAndGetPreviousOwners(){
-        Book b = new Book("Italo", "Brazil", 6 ,"Sao Paolo", "Linguistics");
-        User a = new User("Mark",19,"Lm121","Computer Science",true, "University of Limerick", "0852260882", "fafiw3");
+    void testAddAndGetPreviousOwners() {
+        Book b = new Book("Italo", "Brazil", 6, "Sao Paolo", "Linguistics");
+        User a = new User("Mark", 19, "Lm121", "Computer Science", true, "University of Limerick", "0852260882", "fafiw3");
         b.addToPreviousOwners(a.name);
         assertTrue(b.getPreviousOwners().contains(a.name));
     }
 
 
     @Test
-    void testIfExternalBookWithoutLoanIsConstructedProperly(){
-        Book b = new Book("Sam", "Javascript","Ennis", "Losers");
+    void testIfExternalBookWithoutLoanIsConstructedProperly() {
+        Book b = new Book("Sam", "Javascript", "Ennis", "Losers");
 
         assertAll("Book constructor details",
                 () -> assertInstanceOf(Book.class, b),
-                () -> assertEquals("Sam",b.getName()),
+                () -> assertEquals("Sam", b.getName()),
                 () -> assertEquals("Javascript", b.getSubject()),
                 () -> assertEquals("Ennis", b.getUniOfOrigin()),
                 () -> assertEquals("Losers", b.getDepartment())
@@ -91,9 +93,10 @@ public class CoverageTesting {
     }
 
     @Test
-    void testRemainingGetters(){
+    void testRemainingGetters() {
 
     }
+
     @Test
     void testSearchBook() {
         b.addBook(a);
@@ -111,7 +114,7 @@ public class CoverageTesting {
     }
 
     @Test
-    void testJournalGettersSettersConstructor(){
+    void testJournalGettersSettersConstructor() {
         Journal j = new Journal("Beans", "Stink", "Biology", true, 40, true);
         assertAll("Journal Constructor and getter Details",
                 () -> assertInstanceOf(Journal.class, j),
@@ -125,12 +128,29 @@ public class CoverageTesting {
     }
 
     @Test
-    void testCancelSubscription(){
+    void testCancelSubscription() {
         Journal j = new Journal("j", 20, true);
         assertFalse(j.cancelSubscription(10));
-        Journal j1= new Journal("j1", 20, false);
+        Journal j1 = new Journal("j1", 20, false);
         assertFalse(j1.cancelSubscription(20));
         Journal j2 = new Journal("j2", 20, false);
         assertTrue(j2.cancelSubscription(10));
+    }
+
+    @Test
+    void testUserConstructor(){
+        User u = new User("Sam", 12, "LM051", "Losers", true, "UL", "0896969420", "il0v3j4va5cr1p7");
+
+        assertAll("User Constructor details",
+                () -> assertInstanceOf(User.class, u),
+                () -> assertEquals("Sam", u.getName()),
+                () -> assertEquals(12, u.getAge()),
+                () -> assertEquals("LM051", u.getCourse()),
+                () -> assertEquals("Losers", u.getDepartment()),
+                () -> assertEquals(true, u.isPassedCaptcha()),
+                () -> assertEquals("0896969420", u.getPhoneNumber()),
+                () -> assertEquals("UL", u.getUniversity()),
+                () -> assertEquals("il0v3j4va5cr1p7", u.getPassEncrypted())
+        );
     }
 }
