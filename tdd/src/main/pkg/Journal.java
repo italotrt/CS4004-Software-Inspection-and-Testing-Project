@@ -16,6 +16,12 @@ public class Journal {
         this.name = name;
     }
 
+    public Journal(String n, int min, boolean access){
+        name = n;
+        minimumWithdrawals = min;
+        externalAccess = access;
+    }
+
     public Journal(String name, String subject, String department, boolean available, int minimumWithdrawals, boolean externalAccess){
         this.name = name;
         this.subject = subject;
@@ -59,7 +65,7 @@ public class Journal {
     }
 
     public boolean cancelSubscription(int withdrawals) {
-        if (withdrawals >= getMinimumWithdrawals() || isExternalAccess() == true) {
+        if (withdrawals >= getMinimumWithdrawals() || isExternalAccess()) {
             setSubscriptionStatus(true);
             return false;
         } else {

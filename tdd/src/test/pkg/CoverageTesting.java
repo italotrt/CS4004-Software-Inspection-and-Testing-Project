@@ -124,4 +124,13 @@ public class CoverageTesting {
         );
     }
 
+    @Test
+    void testCancelSubscription(){
+        Journal j = new Journal("j", 20, true);
+        assertFalse(j.cancelSubscription(10));
+        Journal j1= new Journal("j1", 20, false);
+        assertFalse(j1.cancelSubscription(20));
+        Journal j2 = new Journal("j2", 20, false);
+        assertTrue(j2.cancelSubscription(10));
+    }
 }
