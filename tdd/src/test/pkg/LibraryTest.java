@@ -41,6 +41,21 @@ class LibraryTest {
         assertFalse(compSciDept.getCurrentRentedBooks().contains(a));
     }
 
+    //TODO test this
+    @Test
+    void testReservationFeature() {
+        User a = new User("Italo", 20, "Comp Sci", "CSIS", true, "UL", "1234", "pass");
+
+        Book book = new Book("Java Programming", "Comp Sci", "CSIS");
+
+        book.setAvailable(false);
+
+        a.reserveBook(book);
+
+        assertTrue(book.isReserved());
+
+    }
+
     @Test
     void testThatBooksShowPreviousOwnersCorrectly() {
 
