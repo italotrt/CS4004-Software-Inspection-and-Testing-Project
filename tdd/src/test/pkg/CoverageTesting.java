@@ -2,6 +2,8 @@ package pkg;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestClassOrder;
+
 import java.lang.reflect.Array;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
@@ -97,10 +99,6 @@ public class CoverageTesting {
         );
     }
 
-    @Test
-    void testRemainingGetters() {
-
-    }
 
     @Test
     void testSearchBook() {
@@ -117,9 +115,9 @@ public class CoverageTesting {
         newLib.setOpen(true);
         assertTrue(newLib.isOpen());
     }
-
+//tests for journal coverage testing
     @Test
-    void testJournalGettersSettersConstructor() {
+    void testJournalsConstructor() {
         Journal j = new Journal("Beans", "Stink", "Biology", true, 40, true);
         assertAll("Journal Constructor and getter Details",
                 () -> assertInstanceOf(Journal.class, j),
@@ -131,17 +129,30 @@ public class CoverageTesting {
                 () -> assertEquals(true, j.isExternalAccess())
         );
     }
+    @Test
+    void testJournalSettersAndGetters(){
+        Journal j = new Journal("Beans", "Stink", "Biology", true, 40, true);
+        j.setAvailable(false);
+        j.setDepartment("Food and Culinary Arts");
+        j.setSubscriptionStatus(true);
+        assertAll("Journal details",
+                () -> assertFalse(j.isAvailable()),
+                () -> assertEquals("Food and Culinary Arts", j.getDepartment()),
+                () -> assertTrue( j.isSubscriptionStatus())
+        );
+    }
 
     @Test
     void testCancelSubscription() {
         Journal j = new Journal("j", 20, true);
         assertFalse(j.cancelSubscription(10));
         Journal j1 = new Journal("j1", 20, false);
-        assertFalse(j1.cancelSubscription(20));
+        assertTrue(j1.cancelSubscription(20));
         Journal j2 = new Journal("j2", 20, false);
-        assertTrue(j2.cancelSubscription(10));
+        assertFalse(j2.cancelSubscription(10));
     }
 
+    //tests for user
     @Test
     void testUserConstructor(){
         User u = new User("Sam", 12, "LM051", "Losers", true, "UL", "0896969420", "il0v3j4va5cr1p7");
@@ -158,11 +169,27 @@ public class CoverageTesting {
                 () -> assertEquals("il0v3j4va5cr1p7", u.getPassEncrypted())
         );
     }
-
+//tests for department
     @Test
     void testDepartmentConstructor() {
         assertInstanceOf(Department.class, compSci);
     }
+
+    @Test
+    void testBudgetsOfDepartments(){
+        Department a = new Department("Culinary");
+        a.setBudget(50);
+        assertEquals(50, a.getBudget());
+     }
+     @Test
+     void testPurchaseOfBooks(){
+        Department a = new Department("Culinary");
+        a.setBudget(50);
+        Book b = new Book("Vegetables", "Cooking", "Culinary");
+        b.setPrice(20);
+        a.purchaseBooks(b, 1);
+        assertTrue(a.getDepartmentBooks().contains(b));
+     }
 
     @Test
     void testRentBook() {
