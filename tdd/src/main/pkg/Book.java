@@ -10,6 +10,8 @@ public class Book {
     private double price;
     String uniOfOrigin = "";
     private boolean available = true;
+    private boolean reserved = false;
+
     private int lengthOfLoan;
     private ArrayList<String> previousOwners = new ArrayList<>();
 
@@ -83,6 +85,13 @@ public class Book {
     }
     public String getUniOfOrigin(){
         return uniOfOrigin;
+    }
+
+    public boolean isReserved() {
+        return reserved;
+    }
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
     }
 }
 
