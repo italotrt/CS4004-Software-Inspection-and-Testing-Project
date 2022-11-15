@@ -30,8 +30,6 @@ class LibraryTest {
         compSciDept = new Department("Computer Science");
         physicsDept = new Department("Physics");
         mathsDept = new Department("Mathematics");
-
-
     }
 
     @Test
