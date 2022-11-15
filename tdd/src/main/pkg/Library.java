@@ -23,7 +23,6 @@ public class Library {
     }
 
     public boolean searchBook(Book b) {
-        if (!open) return false;
         for (Book i : booksInLibrary) {
             if (i.getName().equals(b.getName())) {
                 if (b.getAvailable()) {

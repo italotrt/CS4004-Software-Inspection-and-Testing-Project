@@ -20,7 +20,7 @@ class LibraryTest {
     @BeforeAll
     public static void setUp() {
         uwon = new Library(true);
-        a = new Book("Introduction to Sahir Sharma", "Idiots in computer science", 14, "A1");
+        a = new Book("Introduction to CSIS", "Computer Science", 14, "A1");
         b = new Book("Maths and stuff!", "Maths", 14, "A1");
         c = new Book("Biology", "Biology", 21, "A1");
         uwon.addBook(a);
@@ -59,7 +59,8 @@ class LibraryTest {
 
     @Test
     void testCorrectUserRegistration() {
-        User user = new User("Mark Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
+        User user = new User("Mark Harrison", 19, "LM051", "Computer Science",
+                true, "University of Limerick", "0852585742", "avcafai3");
         assertAll("User Details",
                 () -> assertEquals("Mark Harrison", user.name),
                 () -> assertEquals(19, user.age),
@@ -82,8 +83,10 @@ class LibraryTest {
 
     @Test
     void testUserCannotWithdrawBookWithoutPerms() {
-        User user = new User("Canada Harrison", 19, "LM051", "Computer Science", true, "University of Ottawa", "0852585742", "avcafai3");
-        User user2 = new User("Ireland Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
+        User user = new User("Canada Harrison", 19, "LM051", "Computer Science",
+                true, "University of Ottawa", "0852585742", "avcafai3");
+        User user2 = new User("Ireland Harrison", 19, "LM051", "Computer Science",
+                true, "University of Limerick", "0852585742", "avcafai3");
 
         Book canadaBook = new Book("Canada Rivers and Lakes", "Geography", "University of Ottawa", "A1");
         Book canadaBook2 = new Book("Canada Mountains and Hills", "Geography", "University of Ottawa", "A1");
@@ -109,7 +112,7 @@ class LibraryTest {
         Journal j = new Journal("b");
         j.setExternalAccess(false);
         j.setMinimumWithdrawals(1);
-        assertTrue(j.cancelSubscription(0));
+        assertFalse(j.cancelSubscription(0));
     }
 
     @Test
@@ -117,7 +120,7 @@ class LibraryTest {
         Journal j = new Journal("c");
         j.setExternalAccess(false);
         j.setMinimumWithdrawals(1);
-        assertFalse(j.cancelSubscription(5000));
+        assertTrue(j.cancelSubscription(5000));
     }
 
     @Test
@@ -130,7 +133,8 @@ class LibraryTest {
 
     @Test
     void UserCanSendStaffEmail() {
-        User user = new User("Mark Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
+        User user = new User("Mark Harrison", 19, "LM051", "Computer Science",
+                true, "University of Limerick", "0852585742", "avcafai3");
         Staff staff = new Staff("Nicholas O Mahony", "LM051");
         user.sendToStaff(staff, "WHAZZAP!!1");
         assertTrue(staff.inbox.contains("WHAZZAP!!1"));
@@ -138,22 +142,24 @@ class LibraryTest {
 
     @Test
     void staffCanSendUserEmail() {
-        User user = new User("Mark Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
+        User user = new User("Mark Harrison", 19, "LM051", "Computer Science",
+                true, "University of Limerick", "0852585742", "avcafai3");
         Staff staff = new Staff("Nicholas O Mahony", "LM051");
-        user.sendToStaff(staff, "I am a homosexual");
-        assertTrue(staff.inbox.contains("I am a homosexual"));
+        staff.sendToUser(user, "Hey!");
+        assertTrue(user.inbox.contains("Hey!"));
     }
 
     @Test
     void testIfLoanTimeIsAccurate() {
         Book book = new Book("How to Analytics", "Statistics", 3, "A1");
-        User user = new User("Mark Harrison", 19, "LM051", "Computer Science", true, "University of Limerick", "0852585742", "avcafai3");
+        User user = new User("Mark Harrison", 19, "LM051", "Computer Science",
+                true, "University of Limerick", "0852585742", "avcafai3");
         user.rentExternalBook(book);
         user.rentExternalBook(a);
         user.rentExternalBook(b);
         assertAll("Rented Book Loan Times",
                 () -> assertTrue(user.loanedBooks.get(0).equals("How to Analytics: 3 days left on loan.")),
-                () -> assertTrue(user.loanedBooks.get(1).equals("Introduction to Sahir Sharma: 14 days left on loan.")),
+                () -> assertTrue(user.loanedBooks.get(1).equals("Introduction to CSIS: 14 days left on loan.")),
                 () -> assertTrue(user.loanedBooks.get(2).equals("Maths and stuff!: 14 days left on loan."))
         );
 
@@ -162,7 +168,12 @@ class LibraryTest {
     @Test
     void bookHasValidDepartment() {
         Book book = new Book("Pizza: A Villain Origin Story", "Religion", 3, "A1");
-        assertTrue(book.getDepartment().length() > 0);
+        assertAll("Book is valid" ,
+                () ->         assertEquals("A1",book.getDepartment()),
+                () ->         assertEquals( "Pizza: A Villain Origin Story",book.getName()),
+                () ->         assertEquals("Religion", book.getSubject()),
+                () ->         assertEquals(3, book.getLengthOfLoan())
+                        );
     }
 
     @Test
@@ -182,13 +193,15 @@ class LibraryTest {
     @Test
     void testSearchIfBookIsAvailableWhenLibraryIsOpen() {
         uwon.setOpen(true);
-        assertEquals(true, uwon.searchBook(a));
+        assertTrue(uwon.searchBook(a));
     }
 
     @Test
     void testSearchIfBookIsAvailableWhenLibraryIsClosed() {
-        uwon.setOpen(false);
-        assertEquals(false, uwon.searchBook(a));
+        Library ah = new Library(false);
+        Book agaw = new Book("AgAw", "Banter", "Bean University", "A1");
+        ah.addBook(agaw);
+        assertTrue(ah.searchBook(agaw));
     }
 
     @Test
@@ -210,7 +223,8 @@ class LibraryTest {
 
     @Test
     void userReturnedBook(){
-        User u = new User( "Bob",20, "LM051", "CS", true, "Yeet", "1234", "12-10103i4920jf0n");
+        User u = new User( "Bob",20, "LM051", "CS", true,
+                "Yeet", "1234", "12-10103i4920jf0n");
         Book b = new Book("CompSci for nerds", "CompSci", "UL", "CSIS;");
         u.returnedBookState(b, true, false);
         assertTrue(u.returnedBooks.contains(b));
@@ -218,7 +232,8 @@ class LibraryTest {
 
     @Test
     void userStealsBook(){
-        User u = new User( "Bob",20, "LM051", "CS", true, "Yeet", "1234", "12-10103i4920jf0n");
+        User u = new User( "Bob",20, "LM051", "CS", true,
+                "Yeet", "1234", "12-10103i4920jf0n");
         Book b = new Book("CompSci for nerds", "CompSci", "UL", "CSIS;");
         u.returnedBookState(b, false, false);
         assertTrue(u.damagedOrStolenBooks.contains(b));
@@ -226,7 +241,8 @@ class LibraryTest {
 
     @Test
     void trackUsersDamagesBook(){
-        User u = new User( "Bob",20, "LM051", "CS", true, "Yeet", "1234", "12-10103i4920jf0n");
+        User u = new User( "Bob",20, "LM051", "CS", true,
+                "Yeet", "1234", "12-10103i4920jf0n");
         Book b = new Book("CompSci for nerds", "CompSci", "UL", "CSIS;");
         u.returnedBookState(b, true, true);
         assertTrue(u.damagedOrStolenBooks.contains(b));

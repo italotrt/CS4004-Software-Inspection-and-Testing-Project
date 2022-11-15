@@ -172,7 +172,7 @@ public class CoverageTesting {
 
         assertAll(() -> assertTrue(compSci.getCurrentRentedBooks().contains(books[0])),
                   () -> assertFalse(compSci.getCurrentRentedBooks().contains(books[1])),
-                  () -> assertLinesMatch((Stream<String>) compSci.getDepartmentBooks(), (Stream<String>) compSci.getCurrentRentedBooks())
+                  () -> assertEquals((Stream<String>) compSci.getDepartmentBooks(), (Stream<String>) compSci.getCurrentRentedBooks())
         );
     }
 }

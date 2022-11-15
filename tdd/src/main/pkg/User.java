@@ -18,7 +18,8 @@ public class User {
     ArrayList<Book> damagedOrStolenBooks = new ArrayList<>();
     ArrayList<Book> returnedBooks = new ArrayList<>();
 
-    public User(String name, int age, String course, String department, boolean passedCaptcha, String university, String phoneNumber, String passEncrypted) {
+    public User(String name, int age, String course, String department, boolean passedCaptcha, String university,
+                String phoneNumber, String passEncrypted) {
         if (passedCaptcha) {
             this.name = name;
             this.age = age;
@@ -34,7 +35,7 @@ public class User {
     }
 
     public void rentExternalBook(Book book) {
-        if (book.uniOfOrigin .equals("")) {
+        if (book.uniOfOrigin.equals("")) {
             rentedBooks.add(book);
             String s = book.getName() + ": " + book.getLengthOfLoan() + " days left on loan.";
             loanedBooks.add(s);
@@ -58,7 +59,7 @@ public class User {
         }
     }
 
-        public void sendToStaff (Staff staff, String message){
+        public void    sendToStaff (Staff staff, String message){
             staff.inbox.add(message);
 
         }
