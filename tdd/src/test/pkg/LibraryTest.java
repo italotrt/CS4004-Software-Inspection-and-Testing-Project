@@ -43,7 +43,7 @@ class LibraryTest {
 
     //TODO test this
     @Test
-    void testReservationFeature() {
+    void testThatReservationFeatureSetsTheBookToReserved() {
         User a = new User("Italo", 20, "Comp Sci", "CSIS", true, "UL", "1234", "pass");
 
         Book book = new Book("Java Programming", "Comp Sci", "CSIS");
@@ -54,6 +54,21 @@ class LibraryTest {
 
         assertTrue(book.isReserved());
 
+    }
+
+    @Test
+    void testThatReservedUserGetsBookNext() {
+        User a = new User("Italo", 20, "Comp Sci", "CSIS", true, "UL", "1234", "pass");
+        User b = new User("Sam", 18, "Comp Sci", "CSIS", true, "UL", "234", "sam23");
+
+        Book book = new Book("Java Programming", "Comp Sci", "CSIS");
+
+        a.rentExternalBook(book);
+        b.reserveBook(book);
+
+        a.returnedBookState(book, true, false);
+
+        assertFalse(book.getAvailable());
     }
 
     @Test
