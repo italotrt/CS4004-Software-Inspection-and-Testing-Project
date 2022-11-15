@@ -30,8 +30,6 @@ class LibraryTest {
         compSciDept = new Department("Computer Science");
         physicsDept = new Department("Physics");
         mathsDept = new Department("Mathematics");
-
-
     }
 
     @Test
@@ -129,7 +127,6 @@ class LibraryTest {
         j.setMinimumWithdrawals(600);
         assertFalse(j.cancelSubscription(24));
     }
-
 
     @Test
     void UserCanSendStaffEmail() {
