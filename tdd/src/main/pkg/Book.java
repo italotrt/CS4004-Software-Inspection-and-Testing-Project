@@ -11,6 +11,7 @@ public class Book {
     String uniOfOrigin = "";
     private boolean available = true;
     private boolean reserved = false;
+    private User reservedUser;
 
     private int lengthOfLoan;
     private ArrayList<String> previousOwners = new ArrayList<>();
@@ -85,6 +86,14 @@ public class Book {
     }
     public String getUniOfOrigin(){
         return uniOfOrigin;
+    }
+
+    public void setReservedUser(User reservedUser) {
+        this.reservedUser = reservedUser;
+    }
+
+    public User getReservedUser() {
+        return reservedUser;
     }
 
     public boolean isReserved() {
