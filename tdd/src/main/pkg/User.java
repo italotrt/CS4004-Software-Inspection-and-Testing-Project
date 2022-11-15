@@ -17,6 +17,8 @@ public class User {
     ArrayList<String> loanedBooks = new ArrayList<>();
     ArrayList<Book> damagedOrStolenBooks = new ArrayList<>();
     ArrayList<Book> returnedBooks = new ArrayList<>();
+    ArrayList<Book> reservedBooks = new ArrayList<>();
+
 
     public User(String name, int age, String course, String department, boolean passedCaptcha, String university, String phoneNumber, String passEncrypted) {
         if (passedCaptcha) {
@@ -73,6 +75,24 @@ public class User {
             return s.toString();
         }
 
+    public void reserveBook(Book book) {
+
+        if (book.isReserved()) {
+            System.out.println("Book is already reserved");
+        }
+        else if (book.getAvailable()) {
+            System.out.println("Book is available and thus cannot be reserved");
+        }
+        else if (!book.getAvailable() && !book.isReserved()) {
+            book.setReserved(true);
+            System.out.printf("Book: %s has been reserved", book.getName());
+        }
+
+    }
+
+    public void sendMessage(String message){
+        System.out.printf("Number %s: %s", phoneNumber, message);
+    }
     public String getDepartment() {
         return department;
     }
