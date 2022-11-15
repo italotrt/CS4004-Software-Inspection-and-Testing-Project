@@ -56,6 +56,13 @@ public class User {
             damagedOrStolenBooks.add(b);
         } else if (returned) {
             returnedBooks.add(b);
+            if(b.isReserved()){
+                b.getReservedUser().sendMessage("Your reserved book is available");
+                b.setReserved(false);
+            }
+            else {
+                b.setAvailable(true);
+            }
         } else {
             damagedOrStolenBooks.add(b);
         }
@@ -86,6 +93,7 @@ public class User {
         }
         else if (!book.getAvailable() && !book.isReserved()) {
             book.setReserved(true);
+            book.setReservedUser(this);
             System.out.printf("Book: %s has been reserved", book.getName());
         }
 
