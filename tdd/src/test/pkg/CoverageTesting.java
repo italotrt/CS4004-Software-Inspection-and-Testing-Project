@@ -3,19 +3,16 @@ package pkg;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestClassOrder;
-
 import java.lang.reflect.Array;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 //testing strategy, cover every condition and method
 public class CoverageTesting {
-
     static Book aBook;
     static Book bBook;
     static Book cBook;
     static Library lib;
-    static Department compSci;
 
     @BeforeAll
     public static void setUp() {
@@ -23,10 +20,9 @@ public class CoverageTesting {
         bBook = new Book("BompSci", "maths", 2, "A1");
         cBook = new Book("CompSci", "maths", 2, "A1");
         lib = new Library(true);
-        compSci = new Department("compSciDept");
     }
 
-    //coverage testing for each method and condition in Book
+    //Coverage tests for Book class
     @Test
     void testIfExternalBookWithLoanIsConstructedProperly() {
         Book b = new Book("Italo", "Brazil", 6, "Sao Paolo", "Linguistics");
@@ -85,7 +81,6 @@ public class CoverageTesting {
         assertTrue(b.getPreviousOwners().contains(a.name));
     }
 
-
     @Test
     void testIfExternalBookWithoutLoanIsConstructedProperly() {
         Book b = new Book("Sam", "Javascript", "Ennis", "Losers");
@@ -98,7 +93,6 @@ public class CoverageTesting {
                 () -> assertEquals("Losers", b.getDepartment())
         );
     }
-
 
     @Test
     void testSearchBook() {
@@ -115,7 +109,8 @@ public class CoverageTesting {
         newLib.setOpen(true);
         assertTrue(newLib.isOpen());
     }
-//tests for journal coverage testing
+
+    //Coverage tests for Journal class
     @Test
     void testJournalsConstructor() {
         Journal j = new Journal("Beans", "Stink", "Biology", true, 40, true);
@@ -152,27 +147,16 @@ public class CoverageTesting {
         assertFalse(j2.cancelSubscription(10));
     }
 
-    //tests for user
-    @Test
-    void testUserConstructor(){
-        User u = new User("Sam", 12, "LM051", "Losers", true, "UL", "0896969420", "il0v3j4va5cr1p7");
-
-        assertAll("User Constructor details",
-                () -> assertInstanceOf(User.class, u),
-                () -> assertEquals("Sam", u.getName()),
-                () -> assertEquals(12, u.getAge()),
-                () -> assertEquals("LM051", u.getCourse()),
-                () -> assertEquals("Losers", u.getDepartment()),
-                () -> assertEquals(true, u.isPassedCaptcha()),
-                () -> assertEquals("0896969420", u.getPhoneNumber()),
-                () -> assertEquals("UL", u.getUniversity()),
-                () -> assertEquals("il0v3j4va5cr1p7", u.getPassEncrypted())
-        );
-    }
-//tests for department
+    //Coverage tests for Department class
     @Test
     void testDepartmentConstructor() {
-        assertInstanceOf(Department.class, compSci);
+        String depart = "Comp Sci";
+        Department compSci = new Department(depart);
+
+        assertAll("Department Constructor details",
+                () -> assertInstanceOf(Department.class, compSci),
+                () -> assertEquals(depart, compSci.getName())
+        );
     }
 
     @Test
@@ -181,6 +165,7 @@ public class CoverageTesting {
         a.setBudget(50);
         assertEquals(50, a.getBudget());
      }
+
      @Test
      void testPurchaseOfBooks(){
         Department a = new Department("Culinary");
@@ -193,13 +178,111 @@ public class CoverageTesting {
 
     @Test
     void testRentBook() {
+        Department compSci = new Department("compSciDept");
         compSci.rentBook(aBook);
-        Book[] books = new Book[]{aBook, bBook, cBook};
-        cBook.setAvailable(false);
+        assertTrue(compSci.getCurrentRentedBooks().contains(aBook));
+    }
 
-        assertAll(() -> assertTrue(compSci.getCurrentRentedBooks().contains(books[0])),
-                  () -> assertFalse(compSci.getCurrentRentedBooks().contains(books[1])),
-                  () -> assertEquals((Stream<String>) compSci.getDepartmentBooks(), (Stream<String>) compSci.getCurrentRentedBooks())
+    //Coverage tests for Staff class
+    @Test
+    void testStaffConstructor() {
+        String name = "italo";
+        String course = "Comp Sci";
+        Staff staff = new Staff(name, course);
+
+        assertAll("Staff Constructor details",
+                () -> assertInstanceOf(Staff.class, staff),
+                () -> assertEquals(name, staff.getName()),
+                () -> assertEquals(course, staff.getCourse())
+        );
+    }
+
+    @Test
+    void testStaffSendToUser() {
+        String name = "italo";
+        String course = "Comp Sci";
+        int age = 20;
+        String depart = "Testing";
+        boolean pCaptcha = true;
+        String uni = "UL";
+        String phoneNo = "123456789";
+        String pass = "password12345";
+        String message = "Hello World!";
+
+        Staff student = new Staff(name, course);
+        User me = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+        student.sendToUser(me, message);
+
+        assertAll("Correct parameters passed",
+                () -> assertInstanceOf(String.class, name),
+                () -> assertInstanceOf(String.class, course),
+                () -> assertInstanceOf(Integer.class, age),
+                () -> assertInstanceOf(String.class, depart),
+                () -> assertInstanceOf(Boolean.class, pCaptcha),
+                () -> assertInstanceOf(String.class, uni),
+                () -> assertInstanceOf(String.class, phoneNo),
+                () -> assertInstanceOf(String.class, pass)
+        );
+
+        assertAll("User Constructor details",
+                () -> assertInstanceOf(User.class, me),
+                () -> assertEquals(name, me.getName()),
+                () -> assertEquals(age, me.getAge()),
+                () -> assertEquals(course, me.getCourse()),
+                () -> assertEquals(depart, me.getDepartment()),
+                () -> assertEquals(pCaptcha, me.isPassedCaptcha()),
+                () -> assertEquals(phoneNo, me.getPhoneNumber()),
+                () -> assertEquals(uni, me.getUniversity()),
+                () -> assertEquals(pass, me.getPassEncrypted())
+        );
+
+        assertAll("Staff Constructor details",
+                () -> assertInstanceOf(Staff.class, student),
+                () -> assertEquals(name, student.getName()),
+                () -> assertEquals(course, student.getCourse())
+        );
+
+        assertAll("Staff sendToUser method",
+                () -> assertInstanceOf(User.class, me),
+                () -> assertInstanceOf(String.class, message),
+                () -> assertTrue(me.inbox.contains(message))
+        );
+    }
+
+    //Coverage tests for User class
+    @Test
+    void testUserConstructor(){
+        String name = "italo";
+        String course = "Comp Sci";
+        int age = 20;
+        String depart = "Testing";
+        boolean pCaptcha = true;
+        String uni = "UL";
+        String phoneNo = "123456789";
+        String pass = "password12345";
+        User me = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+
+        assertAll("Correct parameters passed",
+                () -> assertInstanceOf(String.class, name),
+                () -> assertInstanceOf(String.class, course),
+                () -> assertInstanceOf(Integer.class, age),
+                () -> assertInstanceOf(String.class, depart),
+                () -> assertInstanceOf(Boolean.class, pCaptcha),
+                () -> assertInstanceOf(String.class, uni),
+                () -> assertInstanceOf(String.class, phoneNo),
+                () -> assertInstanceOf(String.class, pass)
+        );
+
+        assertAll("User Constructor details",
+                () -> assertInstanceOf(User.class, me),
+                () -> assertEquals(name, me.getName()),
+                () -> assertEquals(age, me.getAge()),
+                () -> assertEquals(course, me.getCourse()),
+                () -> assertEquals(depart, me.getDepartment()),
+                () -> assertEquals(pCaptcha, me.isPassedCaptcha()),
+                () -> assertEquals(phoneNo, me.getPhoneNumber()),
+                () -> assertEquals(uni, me.getUniversity()),
+                () -> assertEquals(pass, me.getPassEncrypted())
         );
     }
 }

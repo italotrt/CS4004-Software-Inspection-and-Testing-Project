@@ -56,11 +56,10 @@ public class User {
             damagedOrStolenBooks.add(b);
         } else if (returned) {
             returnedBooks.add(b);
-            if(b.isReserved()){
+            if (b.isReserved()) {
                 b.getReservedUser().sendMessage("Your reserved book is available");
                 b.setReserved(false);
-            }
-            else {
+            } else {
                 b.setAvailable(true);
             }
         } else {
@@ -68,40 +67,37 @@ public class User {
         }
     }
 
-        public void    sendToStaff (Staff staff, String message){
-            staff.inbox.add(message);
+    public void sendToStaff(Staff staff, String message) {
+        staff.inbox.add(message);
 
-        }
+    }
 
-        public ArrayList<String> getLoanTimes () {
-            return loanedBooks;
-        }
+    public ArrayList<String> getLoanTimes() {
+        return loanedBooks;
+    }
 
-        public String toString () {
-            StringBuilder s = new StringBuilder();
-            s.append(String.format("Name: %s %nAge: %d %nCourse: %s %nDepartment: %s %nPhone Number: %s %nUniversity: %s", name, age, course, department, phoneNumber, university));
-            return s.toString();
-        }
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append(String.format("Name: %s %nAge: %d %nCourse: %s %nDepartment: %s %nPhone Number: %s %nUniversity: %s", name, age, course, department, phoneNumber, university));
+        return s.toString();
+    }
 
     public void reserveBook(Book book) {
-
         if (book.isReserved()) {
             System.out.println("Book is already reserved");
-        }
-        else if (book.getAvailable()) {
+        } else if (book.getAvailable()) {
             System.out.println("Book is available and thus cannot be reserved");
-        }
-        else if (!book.getAvailable() && !book.isReserved()) {
+        } else if (!book.getAvailable() && !book.isReserved()) {
             book.setReserved(true);
             book.setReservedUser(this);
             System.out.printf("Book: %s has been reserved", book.getName());
         }
-
     }
 
-    public void sendMessage(String message){
+    public void sendMessage(String message) {
         System.out.printf("Number %s: %s", phoneNumber, message);
     }
+
     public String getDepartment() {
         return department;
     }

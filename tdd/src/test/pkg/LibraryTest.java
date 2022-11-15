@@ -37,7 +37,6 @@ class LibraryTest {
         mathsDept.rentBook(a);
         compSciDept.rentBook(a);
 
-
         assertFalse(compSciDept.getCurrentRentedBooks().contains(a));
     }
 

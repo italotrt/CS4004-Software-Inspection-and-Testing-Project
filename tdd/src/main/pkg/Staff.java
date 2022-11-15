@@ -16,4 +16,12 @@ public class Staff {
     public void sendToUser(User user, String message) {
         user.inbox.add(message);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCourse() {
+        return course;
+    }
 }
