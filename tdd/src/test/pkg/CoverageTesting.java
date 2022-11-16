@@ -272,6 +272,12 @@ public class CoverageTesting {
     }
 
     @Test
+    void testUserSendToStaff() {
+        user.sendToStaff(staff, message);
+        assertTrue(user.inbox.contains(message));
+    }
+
+    @Test
     void testUserSendMessage() {
         PrintStream expected = System.out.printf("Number %s: %s", phoneNo, message);
         assertEquals(expected, user.sendMessage(message));
