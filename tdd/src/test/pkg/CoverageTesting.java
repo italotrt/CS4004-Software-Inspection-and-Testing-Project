@@ -22,9 +22,12 @@ public class CoverageTesting {
     static String message;
     static Staff staff;
     static User user;
+    static User user2;
     static Book aBook;
     static Book bBook;
     static Book cBook;
+    static Book dBook;
+    static Book eBook;
     static Library lib;
 
     @BeforeAll
@@ -40,10 +43,14 @@ public class CoverageTesting {
         message = "Hello World!";
         staff = new Staff(name, course);
         user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+        user2 = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
         aBook = new Book("test", "maths", 2, "A1");
         bBook = new Book("BompSci", "maths", 2, "A1");
         cBook = new Book("CompSci", "maths", 2, "A1");
-        lib = new Library(true);
+        dBook = new Book("Banana book", "food", 2, "Trinity", "A1");
+        eBook = new Book("Intellij > VScode", "computer", 2, "UL", "A1");
+
+            lib = new Library(true);
     }
 
     //Test to see if correct parameters have been passed
@@ -295,4 +302,108 @@ public class CoverageTesting {
         assertInstanceOf(String.class, user.toString());
         assertEquals(toString, user.toString());
     }
+
+    @Test
+    void testUserRentExternalBookIf() {
+
+        int before = user.getLoanTimes().size();
+        user.rentExternalBook(aBook);
+        int after = user.getLoanTimes().size();
+        assertNotEquals(before, after);
+
+    }
+
+    @Test
+    void testUserRentExternalBookElseIf() {
+
+        int before = user.getLoanTimes().size();
+        user.rentExternalBook(eBook);
+        int after = user.getLoanTimes().size();
+        assertNotEquals(before, after);
+    }
+
+    @Test
+    void testUserRentExternalBookElse() {
+
+        int before = user.getLoanTimes().size();
+        user.rentExternalBook(dBook);
+        int after = user.getLoanTimes().size();
+        assertEquals(before, after);
+
+    }
+
+    @Test
+    void testReturnedBookStateIf() {
+        int beforeDamage = user.getDamagedOrStolenBooks().size();
+        int beforeReturn = user.getReturnedBooks().size();
+
+        user.returnedBookState(aBook, true, true);
+
+        int afterDamage = user.getDamagedOrStolenBooks().size();
+        int afterReturn = user.getReturnedBooks().size();
+
+        assertAll("testing relevant arrays",
+                () -> assertNotEquals(beforeDamage, afterDamage),
+                () -> assertEquals(beforeReturn, afterReturn)
+        );
+
+    }
+
+    /*
+    @Test
+    void testReturnedBookStateElseIfIf() {
+        int beforeDamage = user.getDamagedOrStolenBooks().size();
+        int beforeReturn = user.getReturnedBooks().size();
+
+
+        user.returnedBookState(aBook, true, false);
+
+        int afterDamage = user.getDamagedOrStolenBooks().size();
+        int afterReturn = user.getReturnedBooks().size();
+
+        assertAll("testing relevant arrays",
+                () -> assertEquals(beforeDamage, afterDamage),
+                () -> assertNotEquals(beforeReturn, afterReturn)
+                //TODO fix this
+        );
+
+    }
+
+     */
+
+    @Test
+    void testReturnedBookStateElseIfElse() {
+        int beforeDamage = user.getDamagedOrStolenBooks().size();
+        int beforeReturn = user.getReturnedBooks().size();
+
+        user.returnedBookState(aBook, true, false);
+
+        int afterDamage = user.getDamagedOrStolenBooks().size();
+        int afterReturn = user.getReturnedBooks().size();
+
+        assertAll("testing relevant arrays",
+                () -> assertEquals(beforeDamage, afterDamage),
+                () -> assertNotEquals(beforeReturn, afterReturn),
+                () -> assertTrue(aBook.getAvailable())
+        );
+
+    }
+
+    @Test
+    void testReturnedBookStateElse() {
+        int beforeDamage = user.getDamagedOrStolenBooks().size();
+        int beforeReturn = user.getReturnedBooks().size();
+
+        user.returnedBookState(aBook, false, true);
+
+        int afterDamage = user.getDamagedOrStolenBooks().size();
+        int afterReturn = user.getReturnedBooks().size();
+
+        assertAll("testing relevant arrays",
+                () -> assertNotEquals(beforeDamage, afterDamage),
+                () -> assertEquals(beforeReturn, afterReturn)
+        );
+    }
+
+
 }
