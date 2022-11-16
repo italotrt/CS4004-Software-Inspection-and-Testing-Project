@@ -1,5 +1,6 @@
 package pkg;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -69,7 +70,6 @@ public class User {
 
     public void sendToStaff(Staff staff, String message) {
         staff.inbox.add(message);
-
     }
 
     public ArrayList<String> getLoanTimes() {
@@ -97,8 +97,8 @@ public class User {
         }
     }
 
-    public void sendMessage(String message) {
-        System.out.printf("Number %s: %s", phoneNumber, message);
+    public PrintStream sendMessage(String message) {
+        return System.out.printf("Number %s: %s", phoneNumber, message);
     }
 
     public String getDepartment() {

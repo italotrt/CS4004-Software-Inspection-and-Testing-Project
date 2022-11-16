@@ -3,6 +3,8 @@ package pkg;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestClassOrder;
+
+import java.io.PrintStream;
 import java.lang.reflect.Array;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
@@ -271,7 +273,8 @@ public class CoverageTesting {
 
     @Test
     void testUserSendMessage() {
-        String expected = "Number " + user.getPhoneNumber() + ":" + message;
+        PrintStream expected = System.out.printf("Number %s: %s", phoneNo, message);
+        assertEquals(expected, user.sendMessage(message));
     }
 
     @Test
