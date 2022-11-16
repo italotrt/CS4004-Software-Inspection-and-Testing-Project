@@ -222,15 +222,21 @@ class LibraryTest {
     @Test
     void testSearchIfBookIsAvailableWhenLibraryIsOpen() {
         uwon.setOpen(true);
-        assertTrue(uwon.searchBook(a));
+
+        assertAll(() -> assertTrue(uwon.searchBook(a)),
+                  () -> assertTrue(uwon.searchBook(b)),
+                  () -> assertTrue(uwon.searchBook(c))
+        );
     }
 
     @Test
     void testSearchIfBookIsAvailableWhenLibraryIsClosed() {
-        Library ah = new Library(false);
-        Book agaw = new Book("AgAw", "Banter", "Bean University", "A1");
-        ah.addBook(agaw);
-        assertTrue(ah.searchBook(agaw));
+        uwon.setOpen(false);
+
+        assertAll(() -> assertTrue(uwon.searchBook(a)),
+                  () -> assertTrue(uwon.searchBook(b)),
+                  () -> assertTrue(uwon.searchBook(c))
+        );
     }
 
     @Test
