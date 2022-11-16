@@ -161,8 +161,9 @@ public class CoverageTesting {
                 () -> assertEquals(true, j.isExternalAccess())
         );
     }
+
     @Test
-    void testJournalSettersAndGetters(){
+    void testJournalSettersAndGetters() {
         Journal j = new Journal("Beans", "Stink", "Biology", true, 40, true);
         j.setAvailable(false);
         j.setDepartment("Food and Culinary Arts");
@@ -170,7 +171,7 @@ public class CoverageTesting {
         assertAll("Journal details",
                 () -> assertFalse(j.isAvailable()),
                 () -> assertEquals("Food and Culinary Arts", j.getDepartment()),
-                () -> assertTrue( j.isSubscriptionStatus())
+                () -> assertTrue(j.isSubscriptionStatus())
         );
     }
 
@@ -196,21 +197,21 @@ public class CoverageTesting {
     }
 
     @Test
-    void testBudgetsOfDepartments(){
+    void testBudgetsOfDepartments() {
         Department a = new Department("Culinary");
         a.setBudget(50);
         assertEquals(50, a.getBudget());
-     }
+    }
 
-     @Test
-     void testPurchaseOfBooks(){
+    @Test
+    void testPurchaseOfBooks() {
         Department a = new Department("Culinary");
         a.setBudget(50);
         Book b = new Book("Vegetables", "Cooking", "Culinary");
         b.setPrice(20);
         a.purchaseBooks(b, 1);
         assertTrue(a.getDepartmentBooks().contains(b));
-     }
+    }
 
     @Test
     void testRentBook() {
@@ -266,5 +267,23 @@ public class CoverageTesting {
                 () -> assertInstanceOf(User.class, user),
                 () -> assertFalse(user.isPassedCaptcha())
         );
+    }
+
+    @Test
+    void testUserSendMessage() {
+        String expected = "Number " + user.getPhoneNumber() + ":" + message;
+    }
+
+    @Test
+    void testUserToString() {
+        String toString = "Name: " + user.getName() + "\n" +
+                "Age: " + user.getAge() + "\n" +
+                "Course: " + user.getCourse() + "\n" +
+                "Department: " + user.getDepartment() + "\n" +
+                "Phone Number: " + user.getPhoneNumber() + "\n" +
+                "University: " + user.getUniversity() + "\n";
+
+        assertInstanceOf(String.class, user.toString());
+        assertEquals(toString, user.toString());
     }
 }

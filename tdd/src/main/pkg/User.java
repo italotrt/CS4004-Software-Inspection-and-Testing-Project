@@ -77,9 +77,12 @@ public class User {
     }
 
     public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append(String.format("Name: %s %nAge: %d %nCourse: %s %nDepartment: %s %nPhone Number: %s %nUniversity: %s", name, age, course, department, phoneNumber, university));
-        return s.toString();
+        return "Name: " + name + "\n" +
+                "Age: " + age + "\n" +
+                "Course: " + course + "\n" +
+                "Department: " + department + "\n" +
+                "Phone Number: " + phoneNumber + "\n" +
+                "University: " + university + "\n";
     }
 
     public void reserveBook(Book book) {
