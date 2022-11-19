@@ -417,7 +417,7 @@ public class CoverageTesting {
     void testUserRentExternalBookIf() {
 
         int before = user.getLoanTimes().size();
-        user.rentExternalBook(aBook);
+        user.rentBook(aBook);
         int after = user.getLoanTimes().size();
         assertNotEquals(before, after);
 
@@ -427,7 +427,7 @@ public class CoverageTesting {
     void testUserRentExternalBookElseIf() {
 
         int before = user.getLoanTimes().size();
-        user.rentExternalBook(eBook);
+        user.rentBook(eBook);
         int after = user.getLoanTimes().size();
         assertNotEquals(before, after);
     }
@@ -436,28 +436,13 @@ public class CoverageTesting {
     void testUserRentExternalBookElse() {
 
         int before = user.getLoanTimes().size();
-        user.rentExternalBook(dBook);
+        user.rentBook(dBook);
         int after = user.getLoanTimes().size();
         assertEquals(before, after);
 
     }
 
-    @Test
-    void testReturnedBookStateIf() {
-        int beforeDamage = user.getDamagedOrStolenBooks().size();
-        int beforeReturn = user.getReturnedBooks().size();
 
-        user.returnedBookState(aBook, true, true);
-
-        int afterDamage = user.getDamagedOrStolenBooks().size();
-        int afterReturn = user.getReturnedBooks().size();
-
-        assertAll("testing relevant arrays",
-                () -> assertNotEquals(beforeDamage, afterDamage),
-                () -> assertEquals(beforeReturn, afterReturn)
-        );
-
-    }
 
     /*
     @Test
@@ -481,39 +466,9 @@ public class CoverageTesting {
 
      */
 
-    @Test
-    void testReturnedBookStateElseIfElse() {
-        int beforeDamage = user.getDamagedOrStolenBooks().size();
-        int beforeReturn = user.getReturnedBooks().size();
 
-        user.returnedBookState(aBook, true, false);
 
-        int afterDamage = user.getDamagedOrStolenBooks().size();
-        int afterReturn = user.getReturnedBooks().size();
-
-        assertAll("testing relevant arrays",
-                () -> assertEquals(beforeDamage, afterDamage),
-                () -> assertNotEquals(beforeReturn, afterReturn),
-                () -> assertTrue(aBook.getAvailable())
-        );
-
-    }
-
-    @Test
-    void testReturnedBookStateElse() {
-        int beforeDamage = user.getDamagedOrStolenBooks().size();
-        int beforeReturn = user.getReturnedBooks().size();
-
-        user.returnedBookState(aBook, false, true);
-
-        int afterDamage = user.getDamagedOrStolenBooks().size();
-        int afterReturn = user.getReturnedBooks().size();
-
-        assertAll("testing relevant arrays",
-                () -> assertNotEquals(beforeDamage, afterDamage),
-                () -> assertEquals(beforeReturn, afterReturn)
-        );
-    }
+    
 
 
 }
