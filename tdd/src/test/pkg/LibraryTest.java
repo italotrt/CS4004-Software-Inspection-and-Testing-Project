@@ -259,8 +259,9 @@ class LibraryTest {
     @Test
     void userReturnedBook(){
         User u = new User( "Bob",20, "LM051", "CS", true,
-                "Yeet", "1234", "12-10103i4920jf0n");
+                "UL", "1234", "12-10103i4920jf0n");
         Book b = new Book("CompSci for nerds", "CompSci", "UL", "CSIS;");
+        u.rentBook(b);
         u.returnedBookState(b, true, false);
         assertTrue(u.returnedBooks.contains(b));
     }
@@ -268,8 +269,9 @@ class LibraryTest {
     @Test
     void userStealsBook(){
         User u = new User( "Bob",20, "LM051", "CS", true,
-                "Yeet", "1234", "12-10103i4920jf0n");
+                "UL", "1234", "12-10103i4920jf0n");
         Book b = new Book("CompSci for nerds", "CompSci", "UL", "CSIS;");
+        u.rentBook(b);
         u.returnedBookState(b, false, false);
         assertTrue(u.damagedOrStolenBooks.contains(b));
     }
@@ -277,8 +279,9 @@ class LibraryTest {
     @Test
     void trackUsersDamagesBook(){
         User u = new User( "Bob",20, "LM051", "CS", true,
-                "Yeet", "1234", "12-10103i4920jf0n");
+                "UL", "1234", "12-10103i4920jf0n");
         Book b = new Book("CompSci for nerds", "CompSci", "UL", "CSIS;");
+        u.rentBook(b);
         u.returnedBookState(b, true, true);
         assertTrue(u.damagedOrStolenBooks.contains(b));
     }
