@@ -19,6 +19,7 @@ public class User {
     ArrayList<Book> damagedOrStolenBooks = new ArrayList<>();
     ArrayList<Book> returnedBooks = new ArrayList<>();
     ArrayList<Book> reservedBooks = new ArrayList<>();
+    ArrayList<String> messages = new ArrayList<>();
 
 
     public User(String name, int age, String course, String department, boolean passedCaptcha, String university,
@@ -37,34 +38,46 @@ public class User {
         }
     }
 
-    public void rentExternalBook(Book book) {
+    public void rentBook(Book book) {
         if (book.uniOfOrigin.equals("")) {
             rentedBooks.add(book);
             String s = book.getName() + ": " + book.getLengthOfLoan() + " days left on loan.";
             loanedBooks.add(s);
+            book.setAvailable(false);
         } else if (Objects.equals(book.uniOfOrigin, university)) {
             rentedBooks.add(book);
             String s = book.getName() + ": " + book.getLengthOfLoan() + " days left on loan.";
             loanedBooks.add(s);
+            book.setAvailable(false);
         } else {
-            System.out.println("you don't have permission!");
+            messages.add("you don't have permission to rent book: " + book.getName());
+            System.out.println("you don't have permission to rent book: " + book.getName());
         }
 
     }
 
-    void returnedBookState(Book b, boolean returned, boolean damaged) {
+    boolean returnedBookState(Book b, boolean returned, boolean damaged) {
+        if(!rentedBooks.contains(b)){
+            System.out.println("You dont own that book!");
+            return false;
+        }
         if (returned && damaged) {
+            returnedBooks.add(b);
             damagedOrStolenBooks.add(b);
+            return true;
         } else if (returned) {
             returnedBooks.add(b);
             if (b.isReserved()) {
                 b.getReservedUser().sendMessage("Your reserved book is available");
                 b.setReserved(false);
+                return true;
             } else {
                 b.setAvailable(true);
+                return true;
             }
         } else {
             damagedOrStolenBooks.add(b);
+            return true;
         }
     }
 
@@ -85,19 +98,20 @@ public class User {
                 "University: " + university + "\n";
     }
 
-    public void reserveBook(Book book) {
+    public String reserveBook(Book book) {
         if (book.isReserved()) {
-            System.out.println("Book is already reserved");
+            return "Book is already reserved";
         } else if (book.getAvailable()) {
-            System.out.println("Book is available and thus cannot be reserved");
-        } else if (!book.getAvailable() && !book.isReserved()) {
+            return "Book is available and thus cannot be reserved";
+        } else {
             book.setReserved(true);
             book.setReservedUser(this);
-            System.out.printf("Book: %s has been reserved", book.getName());
+            return String.format("Book: %s has been reserved", book.getName());
         }
     }
 
     public PrintStream sendMessage(String message) {
+        messages.add(String.format("Number %s: %s", phoneNumber, message));
         return System.out.printf("Number %s: %s", phoneNumber, message);
     }
 

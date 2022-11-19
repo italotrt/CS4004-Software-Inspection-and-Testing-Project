@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestClassOrder;
 
+import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Array;
 import java.util.stream.Stream;
@@ -18,6 +19,7 @@ public class CoverageTesting {
     static boolean pCaptcha;
     static String uni;
     static String phoneNo;
+    static ByteArrayOutputStream output;
     static String pass;
     static String message;
     static Staff staff;
@@ -29,6 +31,8 @@ public class CoverageTesting {
 
     @BeforeAll
     public static void setUp() {
+        output = new ByteArrayOutputStream();
+
         name = "italo";
         course = "Comp Sci";
         age = 20;
@@ -148,6 +152,19 @@ public class CoverageTesting {
         newLib.setOpen(true);
         assertTrue(newLib.isOpen());
     }
+
+    @Test
+    void testIfBookIsReserved(){
+        User a = new User("Mark", 19, "Lm121", "Computer Science", true, "University of Limerick", "0852260882", "fafiw3");
+        Book b = new Book("no", "Yes", 2, "A2");
+        b.setAvailable(false);
+        a.reserveBook(b);
+        assertAll("Is book reserved",
+        () -> assertEquals(b.getReservedUser(), a),
+        () -> assertTrue(b.isReserved())
+    );
+    }
+
 
     //Coverage tests for Journal class
     @Test
@@ -272,6 +289,82 @@ public class CoverageTesting {
     }
 
     @Test
+    void testBookCannotBeReservedTwice(){
+        Book b = new Book("Vegetables", "Cooking", "Culinary");
+        b.setAvailable(false);
+        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+        user.reserveBook(b);
+        User user2 = new User("a",1,"a","a",true,"a","2","ff");
+        assertEquals("Book is already reserved", user2.reserveBook(b));
+    }
+    @Test
+    void testAvailableBookCannotBeReserved(){
+        Book b = new Book("Vegetables", "Cooking", "Culinary");
+        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+        assertEquals("Book is available and thus cannot be reserved", user.reserveBook(b));
+
+    }
+    @Test
+    void testIfBookStatesAreRecordedCorrectlyIfUserDoesntHaveBook(){
+        Book b = new Book("Vegetables", "Cooking", "Culinary");
+        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+            assertFalse(user.returnedBookState(b, true, true));
+
+    }
+
+
+    @Test
+    void testIfSystemSendsNotificationToUserIfReservedBookAvailable(){
+        String expected = String.format("Number %s: %s", phoneNo, "Your reserved book is available");
+
+
+        Book b = new Book("Vegetables", "Cooking", "Culinary");
+        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+        User user2 = new User(name, age, course, depart, pCaptcha, uni, phoneNo, "fawf3");
+        user.rentBook(b);
+        user2.reserveBook(b);
+        user.returnedBookState(b, true, false);
+
+        assertEquals(expected,user2.messages.get(0));
+
+    }
+    @Test
+    void testIfBookStatesAreRecordedCorrectlyIfUserDoesntReturnBook(){
+        Book b = new Book("Vegetables", "Cooking", "Culinary");
+        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+        user.rentBook(b);
+        user.returnedBookState(b, false, true);
+
+
+        assertAll("is book in vairous arraylists",
+                () ->  assertFalse(user.returnedBooks.contains(b)),
+                () ->  assertTrue(user.damagedOrStolenBooks.contains(b)));
+
+    }
+
+    @Test
+    void testIfBookStatesAreRecordedCorrectlyIfUserReturns(){
+        Book b = new Book("Vegetables", "Cooking", "Culinary");
+        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+        user.rentBook(b);
+        user.returnedBookState(b, true, false);
+        assertAll("is book in vairous arraylists",
+                () ->  assertTrue(user.returnedBooks.contains(b)),
+                () ->  assertFalse(user.damagedOrStolenBooks.contains(b)));
+    };
+
+    @Test
+    void testIfBookStatesAreRecordedCorrectlyIfUserReturnsDamagedBook(){
+        Book b = new Book("Vegetables", "Cooking", "Culinary");
+        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+        user.rentBook(b);
+        user.returnedBookState(b, true, true);
+        assertAll("is book in vairous arraylists",
+                () ->  assertTrue(user.returnedBooks.contains(b)),
+                () ->  assertTrue(user.damagedOrStolenBooks.contains(b)));
+    };
+
+    @Test
     void testUserSendToStaff() {
         user.sendToStaff(staff, message);
         assertTrue(user.inbox.contains(message));
@@ -294,5 +387,22 @@ public class CoverageTesting {
 
         assertInstanceOf(String.class, user.toString());
         assertEquals(toString, user.toString());
+    }
+    @Test
+    void testIfLoanTimesAreAccurate(){
+        Book b = new Book("Vegetables", "Cooking",  4, "Canada", "Culinary");
+        User user = new User(name, age, course, depart, pCaptcha, "Canada", phoneNo, pass);
+        user.rentBook(b);
+        assertEquals("Vegetables: 4 days left on loan.", user.getLoanTimes().get(0));
+
+    }
+    @Test
+    void testUniPermsWIthBooks(){
+
+        Book b = new Book("Vegetables", "Cooking",  4, "Canada", "Culinary");
+        User user = new User(name, age, course, depart, pCaptcha, "America", phoneNo, pass);
+        user.rentBook(b);
+        assertEquals("you don't have permission to rent book: Vegetables", user.messages.get(0));
+
     }
 }

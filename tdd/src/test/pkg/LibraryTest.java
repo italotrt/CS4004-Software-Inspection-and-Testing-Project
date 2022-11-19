@@ -62,7 +62,7 @@ class LibraryTest {
 
         Book book = new Book("Java Programming", "Comp Sci", "CSIS");
 
-        a.rentExternalBook(book);
+        a.rentBook(book);
         b.reserveBook(book);
 
         a.returnedBookState(book, true, false);
@@ -120,8 +120,8 @@ class LibraryTest {
         Book canadaBook = new Book("Canada Rivers and Lakes", "Geography", "University of Ottawa", "A1");
         Book canadaBook2 = new Book("Canada Mountains and Hills", "Geography", "University of Ottawa", "A1");
 
-        user.rentExternalBook(canadaBook);
-        user.rentExternalBook(canadaBook2);
+        user.rentBook(canadaBook);
+        user.rentBook(canadaBook2);
         assertAll("Can book be withdrawn",
                 () -> assertTrue(user.rentedBooks.contains(canadaBook)),
                 () -> assertFalse(user2.rentedBooks.contains(canadaBook2)));
@@ -183,9 +183,9 @@ class LibraryTest {
         Book book = new Book("How to Analytics", "Statistics", 3, "A1");
         User user = new User("Mark Harrison", 19, "LM051", "Computer Science",
                 true, "University of Limerick", "0852585742", "avcafai3");
-        user.rentExternalBook(book);
-        user.rentExternalBook(a);
-        user.rentExternalBook(b);
+        user.rentBook(book);
+        user.rentBook(a);
+        user.rentBook(b);
         assertAll("Rented Book Loan Times",
                 () -> assertTrue(user.loanedBooks.get(0).equals("How to Analytics: 3 days left on loan.")),
                 () -> assertTrue(user.loanedBooks.get(1).equals("Introduction to CSIS: 14 days left on loan.")),
