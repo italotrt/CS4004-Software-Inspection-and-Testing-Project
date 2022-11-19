@@ -290,7 +290,7 @@ public class CoverageTesting {
     void testSubscribing() {
         Department compSci = new Department("CompSci");
         Journal j = new Journal("computers weekly");
-        assertNotEquals(compSci.getCurrentSubscriptions().get(0), j.getName());
+        assertFalse(compSci.getCurrentSubscriptions().contains(j.getName()));
         compSci.subscribe(j);
         assertEquals(compSci.getCurrentSubscriptions().get(0), j.getName());
 
