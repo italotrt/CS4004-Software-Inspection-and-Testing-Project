@@ -260,10 +260,40 @@ public class CoverageTesting {
     }
 
     @Test
-    void testRentBook() {
+    void testRentBookPass() {
         Department compSci = new Department("compSciDept");
         compSci.rentBook(aBook);
         assertTrue(compSci.getCurrentRentedBooks().contains(aBook));
+    }
+
+    @Test
+    void testRentBookFail() {
+        Department compSci = new Department("compSciDept");
+        compSci.rentBook(aBook);
+        assertFalse(compSci.getCurrentRentedBooks().contains(bBook));
+    }
+
+    @Test
+    void testGetCurrentSubscriptions() {
+        Department compSci = new Department("CompSci");
+        Journal j = new Journal("computers weekly");
+
+        String[] currentJournals = {j.getName()};
+
+        compSci.subscribe(j);
+
+        assertArrayEquals(compSci.getCurrentSubscriptions().toArray(new String[0]), currentJournals);
+
+    }
+
+    @Test
+    void testSubscribing() {
+        Department compSci = new Department("CompSci");
+        Journal j = new Journal("computers weekly");
+        assertNotEquals(compSci.getCurrentSubscriptions().get(0), j.getName());
+        compSci.subscribe(j);
+        assertEquals(compSci.getCurrentSubscriptions().get(0), j.getName());
+
     }
 
     //Coverage tests for Staff class
