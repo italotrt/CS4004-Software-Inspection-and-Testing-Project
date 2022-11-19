@@ -414,29 +414,29 @@ public class CoverageTesting {
     }
 
     @Test
-    void testUserRentExternalBookIf() {
+    void testUserRentBookIf() {
 
         int before = user.getLoanTimes().size();
-        user.rentExternalBook(aBook);
+        user.rentBook(aBook);
         int after = user.getLoanTimes().size();
         assertNotEquals(before, after);
 
     }
 
     @Test
-    void testUserRentExternalBookElseIf() {
+    void testUserRentBookElseIf() {
 
         int before = user.getLoanTimes().size();
-        user.rentExternalBook(eBook);
+        user.rentBook(eBook);
         int after = user.getLoanTimes().size();
         assertNotEquals(before, after);
     }
 
     @Test
-    void testUserRentExternalBookElse() {
+    void testUserRentBookElse() {
 
         int before = user.getLoanTimes().size();
-        user.rentExternalBook(dBook);
+        user.rentBook(dBook);
         int after = user.getLoanTimes().size();
         assertEquals(before, after);
 
