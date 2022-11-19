@@ -146,11 +146,20 @@ public class CoverageTesting {
 
     //coverage tests for library class
     @Test
-    void testSearchBook() {
+    void testSearchBook() throws SearchException {
         lib.addBook(aBook);
-        Book nonExist = new Book("no", "no", 2, "A1");
         assertTrue(lib.searchBook(aBook));
-        assertFalse(lib.searchBook(nonExist));
+    }
+
+    @Test
+    void testSearchBookFail() throws SearchException {
+        Book nonExist = new Book("no", "no", 2, "A1");
+        lib.addBook(aBook);
+        SearchException thrown = assertThrows(SearchException.class, () ->
+            lib.searchBook(nonExist)
+        );
+
+
     }
 
     @Test
