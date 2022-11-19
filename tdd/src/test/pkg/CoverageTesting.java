@@ -262,6 +262,7 @@ public class CoverageTesting {
     @Test
     void testRentBookPass() {
         Department compSci = new Department("compSciDept");
+        aBook.setAvailable(true);
         compSci.rentBook(aBook);
         assertTrue(compSci.getCurrentRentedBooks().contains(aBook));
     }
