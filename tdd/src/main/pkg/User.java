@@ -147,11 +147,5 @@ public class User {
         return passEncrypted;
     }
 
-    public ArrayList<Book> getDamagedOrStolenBooks() {
-        return damagedOrStolenBooks;
-    }
 
-    public ArrayList<Book> getReturnedBooks() {
-        return returnedBooks;
-    }
 }
