@@ -146,4 +146,12 @@ public class User {
     public String getPassEncrypted() {
         return passEncrypted;
     }
+
+    public ArrayList<Book> getDamagedOrStolenBooks() {
+        return damagedOrStolenBooks;
+    }
+
+    public ArrayList<Book> getReturnedBooks() {
+        return returnedBooks;
+    }
 }
