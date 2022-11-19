@@ -201,10 +201,10 @@ public class CoverageTesting {
                 () -> assertInstanceOf(Journal.class, j),
                 () -> assertEquals("Beans", j.getName()),
                 () -> assertEquals("Stink", j.getSubject()),
-                () -> assertEquals(true, j.isAvailable()),
+                () -> assertTrue(j.isAvailable()),
                 () -> assertEquals(40, j.getMinimumWithdrawals()),
                 () -> assertEquals("Biology", j.getDepartment()),
-                () -> assertEquals(true, j.isExternalAccess())
+                () -> assertTrue(j.isExternalAccess())
         );
     }
 
