@@ -144,6 +144,7 @@ public class CoverageTesting {
         );
     }
 
+    //coverage tests for library class
     @Test
     void testSearchBook() {
         lib.addBook(aBook);
@@ -158,6 +159,25 @@ public class CoverageTesting {
         assertFalse(newLib.isOpen());
         newLib.setOpen(true);
         assertTrue(newLib.isOpen());
+    }
+
+    @Test
+    void testSearchBookByTitle() {
+
+        lib.addBook(aBook);
+        assertEquals(lib.searchBookByTitle("test"), aBook);
+        assertNotEquals(lib.searchBookByTitle("Comp Sci"), aBook);
+
+    }
+
+    @Test
+    void testGetBooksInLibrary() {
+        lib.addBook(aBook);
+
+        Book[] inLibrary = {aBook};
+
+        assertNotSame(lib.getBooksInLibrary().toArray(), inLibrary);
+
     }
 
     @Test
@@ -471,6 +491,9 @@ public class CoverageTesting {
 
 
     
+
+
+
 
 
 }
