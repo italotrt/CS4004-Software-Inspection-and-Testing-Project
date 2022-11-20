@@ -240,6 +240,28 @@ public class CoverageTesting {
         assertFalse(j2.cancelSubscription(10));
     }
 
+    @Test
+    void testSetExternalAccess() {
+
+        Journal j = new Journal("comp sci weekly");
+
+        assertFalse(j.isExternalAccess());
+        j.setExternalAccess(true);
+        assertTrue(j.isExternalAccess());
+    }
+
+    @Test
+    void testMinimumWithdraws() {
+        Journal j = new Journal("comp sci weekly");
+        j.setMinimumWithdrawals(1);
+        assertEquals(j.getMinimumWithdrawals(), 1);
+
+        j.setMinimumWithdrawals(5);
+        assertEquals(j.getMinimumWithdrawals(), 5);
+
+
+    }
+
     //Coverage tests for Department class
     @Test
     void testDepartmentConstructor() {
