@@ -301,8 +301,9 @@ public class CoverageTesting {
     @Test
     void testRentBookFail() {
         Department compSci = new Department("compSciDept");
+        aBook.setAvailable(false);
         compSci.rentBook(aBook);
-        assertFalse(compSci.getCurrentRentedBooks().contains(bBook));
+        assertFalse(compSci.getCurrentRentedBooks().contains(aBook));
     }
 
     @Test
@@ -523,39 +524,5 @@ public class CoverageTesting {
         assertEquals(before, after);
 
     }
-
-
-
-
-
-    /*
-    @Test
-    void testReturnedBookStateElseIfIf() {
-        int beforeDamage = user.getDamagedOrStolenBooks().size();
-        int beforeReturn = user.getReturnedBooks().size();
-
-
-        user.returnedBookState(aBook, true, false);
-
-        int afterDamage = user.getDamagedOrStolenBooks().size();
-        int afterReturn = user.getReturnedBooks().size();
-
-        assertAll("testing relevant arrays",
-                () -> assertEquals(beforeDamage, afterDamage),
-                () -> assertNotEquals(beforeReturn, afterReturn)
-                //TODO fix this
-        );
-
-    }
-
-     */
-
-
-
-    
-
-
-
-
 
 }
