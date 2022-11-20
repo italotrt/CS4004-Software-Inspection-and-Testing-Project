@@ -72,7 +72,7 @@ class LibraryTest {
 
     @Test
     void testThatBooksShowPreviousOwnersCorrectly() {
-
+        b.setAvailable(true);
         historyDept.rentBook(b);
         int index = b.getPreviousOwners().size() - 1;
 
@@ -230,13 +230,12 @@ class LibraryTest {
     }
 
     @Test
-    void testSearchIfBookIsAvailableWhenLibraryIsClosed() {
-        uwon.setOpen(false);
-
-        assertAll(() -> assertTrue(uwon.searchBook(a)),
-                  () -> assertTrue(uwon.searchBook(b)),
-                  () -> assertTrue(uwon.searchBook(c))
-        );
+    void testSearchIfBookIsAvailableWhenLibraryIsClosed() throws SearchException {
+        Library r = new Library(false);
+        a.setAvailable(true);
+        r.addBook(a);
+        System.out.println(r.getBooksInLibrary().size());
+        assertTrue(r.searchBook(a));
     }
 
     @Test

@@ -57,20 +57,6 @@ public class CoverageTesting {
             lib = new Library(true);
     }
 
-    //Test to see if correct parameters have been passed
-    @Test
-    void testCorrectParameter() {
-        assertAll("Correct parameters passed",
-                () -> assertInstanceOf(String.class, name),
-                () -> assertInstanceOf(String.class, course),
-                () -> assertInstanceOf(Integer.class, age),
-                () -> assertInstanceOf(String.class, depart),
-                () -> assertInstanceOf(Boolean.class, pCaptcha),
-                () -> assertInstanceOf(String.class, uni),
-                () -> assertInstanceOf(String.class, phoneNo),
-                () -> assertInstanceOf(String.class, pass)
-        );
-    }
 
     //Coverage tests for Book class
     @Test
@@ -171,11 +157,10 @@ public class CoverageTesting {
     }
 
     @Test
-    void testSearchBookByTitle() {
+    void testSearchBookByTitle() throws SearchException {
 
         lib.addBook(aBook);
         assertEquals(lib.searchBookByTitle("test"), aBook);
-        assertNotEquals(lib.searchBookByTitle("Comp Sci"), aBook);
 
     }
 

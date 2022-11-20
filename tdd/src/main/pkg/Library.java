@@ -37,12 +37,11 @@ public class Library {
         return open;
     }
 
-    public Book searchBookByTitle(String title) {
+    public Book searchBookByTitle(String title) throws SearchException {
         for (Book book : booksInLibrary) {
-            if (!book.getName().equalsIgnoreCase(title)) continue;
-            return book;
+            if (book.getName().equalsIgnoreCase(title)){return book;}
         }
-        return null;
+        throw new SearchException("Book not found!");
 
 
     }
