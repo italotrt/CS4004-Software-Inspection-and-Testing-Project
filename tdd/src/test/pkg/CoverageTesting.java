@@ -7,6 +7,7 @@ import org.junit.jupiter.api.TestClassOrder;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Array;
+import java.util.Locale;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,10 +60,11 @@ public class CoverageTesting {
 
 
     //Coverage tests for Book class
+
     @Test
     void testIfExternalBookWithLoanIsConstructedProperly() {
         Book b = new Book("Italo", "Brazil", 6, "Sao Paolo", "Linguistics");
-        assertAll("Book construcor details",
+        assertAll("Book constructor details",
                 () -> assertInstanceOf(Book.class, b),
                 () -> assertEquals("Italo", b.getName()),
                 () -> assertEquals("Brazil", b.getSubject()),
@@ -94,6 +96,18 @@ public class CoverageTesting {
                 () -> assertEquals("Hair", b.getDepartment())
         );
     }
+    @Test
+    void testIfExternalBookWithoutLoanIsConstructedProperly() {
+        Book b = new Book("Sam", "Javascript", "Ennis", "Losers");
+
+        assertAll("Book constructor details",
+                () -> assertInstanceOf(Book.class, b),
+                () -> assertEquals("Sam", b.getName()),
+                () -> assertEquals("Javascript", b.getSubject()),
+                () -> assertEquals("Ennis", b.getUniOfOrigin()),
+                () -> assertEquals("Losers", b.getDepartment())
+        );
+    }
 
     @Test
     void testGetAndSetPrice() {
@@ -117,18 +131,7 @@ public class CoverageTesting {
         assertTrue(b.getPreviousOwners().contains(a.name));
     }
 
-    @Test
-    void testIfExternalBookWithoutLoanIsConstructedProperly() {
-        Book b = new Book("Sam", "Javascript", "Ennis", "Losers");
 
-        assertAll("Book constructor details",
-                () -> assertInstanceOf(Book.class, b),
-                () -> assertEquals("Sam", b.getName()),
-                () -> assertEquals("Javascript", b.getSubject()),
-                () -> assertEquals("Ennis", b.getUniOfOrigin()),
-                () -> assertEquals("Losers", b.getDepartment())
-        );
-    }
 
     //coverage tests for library class
     @Test
@@ -158,9 +161,11 @@ public class CoverageTesting {
 
     @Test
     void testSearchBookByTitle() throws SearchException {
-
         lib.addBook(aBook);
-        assertEquals(lib.searchBookByTitle("test"), aBook);
+        Book b = new Book("test", "maths", 2, "A1");
+        assertAll("Search by Title",
+                () ->   assertEquals(lib.searchBookByTitle("test"), aBook),
+                () -> assertNotEquals(lib.searchBookByTitle("test"),b));
 
     }
 
@@ -170,7 +175,7 @@ public class CoverageTesting {
 
         Book[] inLibrary = {aBook};
 
-        assertNotSame(lib.getBooksInLibrary().toArray(), inLibrary);
+        assertEquals(lib.getBooksInLibrary().get(0), inLibrary[0]);
 
     }
 
