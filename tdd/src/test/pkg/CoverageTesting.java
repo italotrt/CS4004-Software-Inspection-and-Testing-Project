@@ -53,7 +53,7 @@ public class CoverageTesting {
         bBook = new Book("BompSci", "maths", 2, "A1");
         cBook = new Book("CompSci", "maths", 2, "A1");
         dBook = new Book("Banana book", "food", 2, "Trinity", "A1");
-        eBook = new Book("Intellij > VScode", "computer", 2, "UL", "A1");
+        eBook = new Book("Intellij > VScode", "computer", 2, "Sao Paolo", "A1");
 
             lib = new Library(true);
     }
@@ -181,7 +181,8 @@ public class CoverageTesting {
 
     @Test
     void testIfBookIsReserved(){
-        User a = new User("Mark", 19, "Lm121", "Computer Science", true, "University of Limerick", "0852260882", "fafiw3");
+        User a = new User("Mark", 19, "Lm121", "Computer Science",
+                true, "University of Limerick", "0852260882", "fafiw3");
         Book b = new Book("no", "Yes", 2, "A2");
         b.setAvailable(false);
         a.reserveBook(b);
@@ -190,9 +191,41 @@ public class CoverageTesting {
         () -> assertTrue(b.isReserved())
     );
     }
+    @Test
+    void testBookCannotBeReservedTwice(){
+        Book b = new Book("Vegetables", "Cooking", "Culinary");
+        b.setAvailable(false);
+        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+        user.reserveBook(b);
+        User user2 = new User("a",1,"a","a",true,"a","2","ff");
+        assertEquals("Book is already reserved", user2.reserveBook(b));
+    }
+    @Test
+    void testAvailableBookCannotBeReserved(){
+        Book b = new Book("Vegetables", "Cooking", "Culinary");
+        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+        assertEquals("Book is available and thus cannot be reserved", user.reserveBook(b));
+
+    }
+
+    @Test
+    void testIfSystemSendsNotificationToUserIfReservedBookAvailable(){
+        String expected = String.format("Number %s: %s", phoneNo, "Your reserved book is available");
 
 
-    //Coverage tests for Journal class
+        Book b = new Book("Vegetables", "Cooking", "Culinary");
+        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
+        User user2 = new User(name, age, course, depart, pCaptcha, uni, phoneNo, "fawf3");
+        user.rentBook(b);
+        user2.reserveBook(b);
+        user.returnedBookState(b, true, false);
+
+        assertEquals(expected,user2.messages.get(0));
+
+    }
+
+
+        //Coverage tests for Journal class
     @Test
     void testJournalsConstructor() {
         Journal j = new Journal("Beans", "Stink", "Biology", true, 40, true);
@@ -251,6 +284,29 @@ public class CoverageTesting {
 
 
     }
+    @Test
+    void testSubscribing() {
+        Department compSci = new Department("CompSci");
+        Journal j = new Journal("computers weekly");
+        assertFalse(compSci.getCurrentSubscriptions().contains(j.getName()));
+        compSci.subscribe(j);
+        assertTrue(compSci.getCurrentSubscriptions().contains( j.getName()));
+
+    }
+
+    //test removed due to overlap
+   /* @Test
+    void testGetCurrentSubscriptions() {
+        Department compSci = new Department("CompSci");
+        Journal j = new Journal("computers weekly");
+
+        String[] currentJournals = {j.getName()};
+
+        compSci.subscribe(j);
+
+        assertArrayEquals(compSci.getCurrentSubscriptions().toArray(new String[0]), currentJournals);
+
+    }*/
 
     //Coverage tests for Department class
     @Test
@@ -296,28 +352,8 @@ public class CoverageTesting {
         assertFalse(compSci.getCurrentRentedBooks().contains(aBook));
     }
 
-    @Test
-    void testGetCurrentSubscriptions() {
-        Department compSci = new Department("CompSci");
-        Journal j = new Journal("computers weekly");
 
-        String[] currentJournals = {j.getName()};
 
-        compSci.subscribe(j);
-
-        assertArrayEquals(compSci.getCurrentSubscriptions().toArray(new String[0]), currentJournals);
-
-    }
-
-    @Test
-    void testSubscribing() {
-        Department compSci = new Department("CompSci");
-        Journal j = new Journal("computers weekly");
-        assertFalse(compSci.getCurrentSubscriptions().contains(j.getName()));
-        compSci.subscribe(j);
-        assertEquals(compSci.getCurrentSubscriptions().get(0), j.getName());
-
-    }
 
     //Coverage tests for Staff class
     @Test
@@ -332,14 +368,8 @@ public class CoverageTesting {
     @Test
     void testStaffSendToUser() {
         staff.sendToUser(user, message);
-
-        assertAll("Staff sendToUser method",
-                () -> assertInstanceOf(User.class, user),
-                () -> assertInstanceOf(String.class, message),
-                () -> assertTrue(user.inbox.contains(message))
-        );
+        assertTrue(user.inbox.contains(message));
     }
-
     //Coverage tests for User class
     @Test
     void testUserConstructorWithPassedCaptcha() {
@@ -362,28 +392,11 @@ public class CoverageTesting {
         User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
 
         assertAll("User Constructor details",
-                () -> assertInstanceOf(Boolean.class, pCaptcha),
-                () -> assertInstanceOf(User.class, user),
                 () -> assertFalse(user.isPassedCaptcha())
         );
     }
 
-    @Test
-    void testBookCannotBeReservedTwice(){
-        Book b = new Book("Vegetables", "Cooking", "Culinary");
-        b.setAvailable(false);
-        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
-        user.reserveBook(b);
-        User user2 = new User("a",1,"a","a",true,"a","2","ff");
-        assertEquals("Book is already reserved", user2.reserveBook(b));
-    }
-    @Test
-    void testAvailableBookCannotBeReserved(){
-        Book b = new Book("Vegetables", "Cooking", "Culinary");
-        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
-        assertEquals("Book is available and thus cannot be reserved", user.reserveBook(b));
 
-    }
     @Test
     void testIfBookStatesAreRecordedCorrectlyIfUserDoesntHaveBook(){
         Book b = new Book("Vegetables", "Cooking", "Culinary");
@@ -393,21 +406,7 @@ public class CoverageTesting {
     }
 
 
-    @Test
-    void testIfSystemSendsNotificationToUserIfReservedBookAvailable(){
-        String expected = String.format("Number %s: %s", phoneNo, "Your reserved book is available");
 
-
-        Book b = new Book("Vegetables", "Cooking", "Culinary");
-        User user = new User(name, age, course, depart, pCaptcha, uni, phoneNo, pass);
-        User user2 = new User(name, age, course, depart, pCaptcha, uni, phoneNo, "fawf3");
-        user.rentBook(b);
-        user2.reserveBook(b);
-        user.returnedBookState(b, true, false);
-
-        assertEquals(expected,user2.messages.get(0));
-
-    }
     @Test
     void testIfBookStatesAreRecordedCorrectlyIfUserDoesntReturnBook(){
         Book b = new Book("Vegetables", "Cooking", "Culinary");
@@ -476,7 +475,8 @@ public class CoverageTesting {
         assertEquals("Vegetables: 4 days left on loan.", user.getLoanTimes().get(0));
 
     }
-    @Test
+    //removed test, overlapped with other
+    /*@Test
     void testUniPermsWIthBooks(){
 
         Book b = new Book("Vegetables", "Cooking",  4, "Canada", "Culinary");
@@ -484,9 +484,10 @@ public class CoverageTesting {
         user.rentBook(b);
         assertEquals("you don't have permission to rent book: Vegetables", user.messages.get(0));
 
-    }
+    }*/
 
-    @Test
+    //removed test, overlapped with other
+   /* @Test
     void testUserRentBookIf() {
 
         int before = user.getLoanTimes().size();
@@ -494,25 +495,35 @@ public class CoverageTesting {
         int after = user.getLoanTimes().size();
         assertNotEquals(before, after);
 
-    }
+    }*/
 
     @Test
-    void testUserRentBookElseIf() {
+    void testUserRentExternalBookWithLoanTimesWithoutPerms() {
 
         int before = user.getLoanTimes().size();
         user.rentBook(eBook);
         int after = user.getLoanTimes().size();
-        assertNotEquals(before, after);
+        assertEquals(before, after);
     }
-
-    @Test
+    //removed test, overlapped with others
+   /* @Test
     void testUserRentBookElse() {
+
 
         int before = user.getLoanTimes().size();
         user.rentBook(dBook);
         int after = user.getLoanTimes().size();
         assertEquals(before, after);
 
-    }
+    }*/
+    @Test
+    void testSearchBookByTitleNotFound() throws SearchException {
+        SearchException thrown =
+                assertThrows(
+                SearchException.class,
+                () -> lib.searchBookByTitle("a"));
 
+        assertTrue(thrown.getMessage().contains("Book not found!"));
+
+    }
 }

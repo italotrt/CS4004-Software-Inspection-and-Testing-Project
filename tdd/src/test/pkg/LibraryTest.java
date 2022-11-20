@@ -161,6 +161,20 @@ class LibraryTest {
     }
 
     @Test
+    void reserveABookThatIsNotAvailable(){
+        Book b = new Book("Italo", "Brazil", "A2");
+        User user = new User("Mark Harrison", 19, "LM051", "Computer Science",
+                true, "University of Limerick", "0852585742", "avcafai3");
+        assertEquals("Book is available and thus cannot be reserved", user.reserveBook(b));
+
+        b.setAvailable(false);
+        User user2 = new User("Mark Harrison", 18, "LM051", "Computer Science",
+                true, "University of Limerick", "0852585742", "avcafai3");
+
+        assertEquals("Book: Italo has been reserved", user.reserveBook(b));
+        assertEquals("Book is already reserved", user2.reserveBook(b));
+    }
+    @Test
     void UserCanSendStaffEmail() {
         User user = new User("Mark Harrison", 19, "LM051", "Computer Science",
                 true, "University of Limerick", "0852585742", "avcafai3");
