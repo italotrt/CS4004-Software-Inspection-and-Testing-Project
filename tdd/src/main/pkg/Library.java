@@ -22,7 +22,7 @@ public class Library {
         this.open = open;
     }
 
-    public boolean searchBook(Book b) {
+    public boolean searchBook(Book b) throws SearchException {
         for (Book i : booksInLibrary) {
             if (i.getName().equals(b.getName())) {
                 if (b.getAvailable()) {
@@ -30,7 +30,7 @@ public class Library {
                 }
             }
         }
-        return false;
+        throw new SearchException("no book found");
     }
 
     public boolean isOpen() {

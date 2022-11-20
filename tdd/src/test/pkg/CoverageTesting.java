@@ -146,11 +146,20 @@ public class CoverageTesting {
 
     //coverage tests for library class
     @Test
-    void testSearchBook() {
+    void testSearchBook() throws SearchException {
         lib.addBook(aBook);
-        Book nonExist = new Book("no", "no", 2, "A1");
         assertTrue(lib.searchBook(aBook));
-        assertFalse(lib.searchBook(nonExist));
+    }
+
+    @Test
+    void testSearchBookFail() throws SearchException {
+        Book nonExist = new Book("no", "no", 2, "A1");
+        lib.addBook(aBook);
+        SearchException thrown = assertThrows(SearchException.class, () ->
+            lib.searchBook(nonExist)
+        );
+
+
     }
 
     @Test
@@ -231,6 +240,28 @@ public class CoverageTesting {
         assertFalse(j2.cancelSubscription(10));
     }
 
+    @Test
+    void testSetExternalAccess() {
+
+        Journal j = new Journal("comp sci weekly");
+
+        assertFalse(j.isExternalAccess());
+        j.setExternalAccess(true);
+        assertTrue(j.isExternalAccess());
+    }
+
+    @Test
+    void testMinimumWithdraws() {
+        Journal j = new Journal("comp sci weekly");
+        j.setMinimumWithdrawals(1);
+        assertEquals(j.getMinimumWithdrawals(), 1);
+
+        j.setMinimumWithdrawals(5);
+        assertEquals(j.getMinimumWithdrawals(), 5);
+
+
+    }
+
     //Coverage tests for Department class
     @Test
     void testDepartmentConstructor() {
@@ -270,8 +301,9 @@ public class CoverageTesting {
     @Test
     void testRentBookFail() {
         Department compSci = new Department("compSciDept");
+        aBook.setAvailable(false);
         compSci.rentBook(aBook);
-        assertFalse(compSci.getCurrentRentedBooks().contains(bBook));
+        assertFalse(compSci.getCurrentRentedBooks().contains(aBook));
     }
 
     @Test
@@ -492,39 +524,5 @@ public class CoverageTesting {
         assertEquals(before, after);
 
     }
-
-
-
-
-
-    /*
-    @Test
-    void testReturnedBookStateElseIfIf() {
-        int beforeDamage = user.getDamagedOrStolenBooks().size();
-        int beforeReturn = user.getReturnedBooks().size();
-
-
-        user.returnedBookState(aBook, true, false);
-
-        int afterDamage = user.getDamagedOrStolenBooks().size();
-        int afterReturn = user.getReturnedBooks().size();
-
-        assertAll("testing relevant arrays",
-                () -> assertEquals(beforeDamage, afterDamage),
-                () -> assertNotEquals(beforeReturn, afterReturn)
-                //TODO fix this
-        );
-
-    }
-
-     */
-
-
-
-    
-
-
-
-
 
 }
