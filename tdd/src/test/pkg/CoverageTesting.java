@@ -517,7 +517,7 @@ public class CoverageTesting {
 
     }*/
     @Test
-    void testSearchBookByTitleNotFound() throws SearchException {
+    void testSearchBookByTitleNotFound() {
         SearchException thrown =
                 assertThrows(
                 SearchException.class,
