@@ -1,5 +1,5 @@
 # Software Inspection and Testing Project
-University Project Module CS4004
+University Project Module CS4004 by Italo Terto, Mark Harrison, Nicholas O'Mahony, Sam Ennis and Euan Bourke
 
 # CS4004 Project Specification
 
